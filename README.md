@@ -60,5 +60,6 @@ To set up and run the project locally, follow these steps:
 
 For any questions or suggestions, please reach out:
 
-- **Mr Toumi Fourat** - [fourattoumi021@gmail.com](mailto:fourattoumi021@gmail.com)
+- **Mr Toumi's  Email** - [fourattoumi021@gmail.com](mailto:fourattoumi021@gmail.com)
 - **GitHub** - [https://github.com/ToumiFourat](https://github.com/ToumiFourat)
+- **Linkedin** - [https://www.linkedin.com/in/fourat-toumi-7679232a7/](https://www.linkedin.com/in/fourat-toumi-7679232a7/)
