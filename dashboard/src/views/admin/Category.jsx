@@ -80,7 +80,7 @@ const Category = () => {
         dispatch(get_category(obj))
 
     },[searchValue, currentPage,parPage])
-    console.log(searchValue)
+    
 
 
     return (
