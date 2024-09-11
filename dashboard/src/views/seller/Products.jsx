@@ -26,7 +26,7 @@ const Products = () => {
         }
         dispatch(get_products(obj))
 
-    },[searchValue, currentPage,parPage])
+    },[dispatch,searchValue, currentPage,parPage])
 
     return (
         <div className='px-2 lg:px-7 pt-5'>
@@ -54,12 +54,13 @@ const Products = () => {
 
         <tbody>
             {
-                [1,2,3,4,5].map((d, i) => <tr key={i}>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d}</td>
+                products.map((d, i) => <tr key={i}>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{i + 1}</td>
                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
-                    <img className='w-[45px] h-[45px]' src={`http://localhost:3000/images/category/${d}.jpg`} alt="" />
+                    <img className='w-[45px] h-[45px]' src={d.images[0]} alt="" />
+                    
                 </td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>Men Full Sleeve</td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.name}</td>
                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>Tshirt</td>
                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>Veirdo </td>
                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>$232</td>
@@ -72,7 +73,7 @@ const Products = () => {
                     <Link className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'> <FaEye/> </Link>
                     <Link className='p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50'> <FaTrash/> </Link> 
                     </div>
-                    
+
                     </td>
             </tr> )
             }
@@ -96,7 +97,10 @@ const Products = () => {
            
          </div>
         </div>
+        
     );
+    
 };
+
 
 export default Products;
