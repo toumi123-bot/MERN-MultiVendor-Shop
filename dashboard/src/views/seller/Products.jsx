@@ -60,12 +60,19 @@ const Products = () => {
                     <img className='w-[45px] h-[45px]' src={d.images[0]} alt="" />
                     
                 </td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.name}</td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>Tshirt</td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>Veirdo </td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>$232</td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>10%</td>
-                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>20</td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d?.name?.slice(0,15)}...</td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.category}</td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.brand} </td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.price}</td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
+                    {
+                        d.discount === 0 ? <span>No Discount</span> :
+                        <span>%{d.discount}</span>
+
+                    }
+                    
+                </td>
+                <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d.stock}</td>
                  
                 <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
                     <div className='flex justify-start items-center gap-4'>
@@ -83,7 +90,8 @@ const Products = () => {
     </table> 
     </div>  
 
-    <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
+    {
+        totalProduct <= parPage ? "" : <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
         <Pagination 
             pageNumber = {currentPage}
             setPageNumber = {setCurrentPage}
@@ -92,6 +100,7 @@ const Products = () => {
             showItem = {3}
         />
         </div>
+    }
 
 
            
