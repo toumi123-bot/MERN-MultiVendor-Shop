@@ -12,10 +12,9 @@ class productController{
             if (err) {
                 return responseReturn(res, 500, { error: 'Form parsing failed' });
             }
-    
             let { name, category, description, stock, price, discount, shopName, brand } = field;
             let { images } = files;
-    
+        
             if (!Array.isArray(images)) {
                 images = [images]; // Assurez-vous que images est un tableau
             }
@@ -39,10 +38,10 @@ class productController{
                         allImageUrl.push(result.url);
                     } catch (uploadError) {
                         console.error('Cloudinary upload error:', uploadError);
-                        return responseReturn(res, 500, { error: 'Image upload failed' });
+                        return responseReturn(res, 500, { error: 'Image upload failed'});
+
                     }
                 }
-    
                 await productModel.create({
                     sellerId: id,
                     name,
@@ -93,16 +92,30 @@ class productController{
 
 
             }
-            
+
         } catch (error) {
 
-            
+            console.log(error.message)
         }
 
     }
 
 
      /// end method 
+
+
+     product_get = async (req,res) => {
+        const {productId} = req.params
+        try {
+            const product = await productModel.findById(productId)
+            responseReturn(res, 200,{ product})
+
+        } catch (error) {
+            console.log(error.message)
+        }
+     }
+
+      /// end method 
 
 
 
