@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaImages } from "react-icons/fa6";
 import { FadeLoader } from 'react-spinners';
 import { FaRegEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
-
+import { profile_image_upload,messageClear} from '../../store/Reducers/authReducer'
+import toast from 'react-hot-toast';
 const Profile = () => {
     const dispatch = useDispatch()
-    const {userInfo} = useSelector(state => state.auth)
-    const image = true 
-    const loader = true
+    const {userInfo,loader,successMessage} = useSelector(state => state.auth)
+
+ 
     const status = 'active'
+
+    useEffect(() => {
+
+        if (successMessage) {
+            toast.success(successMessage)
+            messageClear()
+            
+        }
+        
+
+
+    },[successMessage])
+
    const add_image = (e) => {
     if(e.target.files.length>0){
-        console.log(e.target.files[0])
+        const formData = new FormData()
+        formData.append('image',e.target.files[0])
+        dispatch(profile_image_upload(formData))
     }
    }
 
@@ -23,10 +39,10 @@ const Profile = () => {
         <div className='w-full p-4 bg-[#6a5fdf] rounded-md text-[#d0d2d6]'>
             <div className='flex justify-center items-center py-3'>
                 {
-                    image ?.image? <label htmlFor="img" className='h-[150px] w-[200px] relative p-3 cursor-pointer overflow-hidden'>
-                        <img src="http://localhost:3000/images/demo.jpg" alt="" />
+                    userInfo.image ?.image? <label htmlFor="img" className='h-[150px] w-[200px] relative p-3 cursor-pointer overflow-hidden'>
+                        <img src={userInfo.image} alt="" />
                         {
-                        !loader && <div className='bg-slate-600 absolute left-0 top-0 w-full h-full opacity-70 flex justify-center items-center z-20'>
+                        loader && <div className='bg-slate-600 absolute left-0 top-0 w-full h-full opacity-70 flex justify-center items-center z-20'>
                             <span>
                                 <FadeLoader/>
                             </span>
@@ -92,17 +108,17 @@ const Profile = () => {
             </div>  
 
             <div className='flex flex-col w-full gap-1 mb-2'>
-                <label htmlFor="division">Division Name</label>
+                <label htmlFor="division">Région</label>
                 <input className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='division' id='division' placeholder='division Name' />
             </div>  
 
             <div className='flex flex-col w-full gap-1 mb-2'>
-                <label htmlFor="district">District Name</label>
+                <label htmlFor="district">Gouvernorat</label>
                 <input className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='district' id='district' placeholder='District Name' />
             </div>  
 
             <div className='flex flex-col w-full gap-1 mb-2'>
-                <label htmlFor="subdis">Sub District Name</label>
+                <label htmlFor="subdis">Délégation</label>
                 <input className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='subdis' id='subdis' placeholder='Sub District Name' />
             </div>  
 
