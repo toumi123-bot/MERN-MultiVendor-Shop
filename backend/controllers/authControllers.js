@@ -137,49 +137,38 @@ class authControllers{
     
     // End getUser Method 
 
-    profile_image_upload = async (req,res) => {
+    profile_image_upload = async(req, res) => {
         const {id} = req
-        const form = formidable({ multiples: true });
-        form.parse(req, async(err,_,files)=>{
-            cloudinary.config({
+        const form = formidable({ multiples: true })
+        form.parse(req, async(err,_,files) => {
+                cloudinary.config({
                 cloud_name: process.env.cloud_name,
                 api_key: process.env.api_key,
                 api_secret: process.env.api_secret,
-                secure: true,
-            });
-            const { image } = files 
-
+                secure: true
+            })
+            const { image } = files
 
             try {
                 const result = await cloudinary.uploader.upload(image.filepath, { folder: 'profile'})
                 if (result) {
                     await sellerModel.findByIdAndUpdate(id, {
                         image: result.url
-                    })
+                    }) 
                     const userInfo = await sellerModel.findById(id)
-                    responseReturn(res, 200,{product, message : 'Profile Image Upload Successfully',userInfo})
-    
-                    
+                    responseReturn(res, 201,{ message : 'Profile Image Upload Successfully',userInfo})
                 } else {
                     responseReturn(res, 404,{ error : 'Image Upload Failed'})
-                   
-                    
                 }
 
             } catch (error) {
-                responseReturn(res, 500,{ error :error.message })
-
+                responseReturn(res, 500,{ error : error.message })
             }
 
-
-
-
-
-    
         })
     }
 
-    // End getUser Method 
+    // End Method 
 
     profile_info_add = async (req, res) => {
         const { division,district,shopName,sub_district } = req.body;

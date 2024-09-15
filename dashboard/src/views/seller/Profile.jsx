@@ -15,7 +15,7 @@ const Profile = () => {
         sub_district: '' 
     })
     const dispatch = useDispatch()
-    const {userInfo,loader,successMessage} = useSelector(state => state.auth)
+    const { userInfo,loader,successMessage } = useSelector(state => state.auth)
 
  
     const status = 'active'
@@ -24,32 +24,32 @@ const Profile = () => {
 
         if (successMessage) {
             toast.success(successMessage)
-            messageClear()
-            
-        }
-        
-
-
+            messageClear() 
+        } 
     },[successMessage])
 
-   const add_image = (e) => {
-    if(e.target.files.length>0){
-        const formData = new FormData()
-        formData.append('image',e.target.files[0])
-        dispatch(profile_image_upload(formData))
-    }
-   }
+
+  
    const inputHandle = (e) => {
     setState({
         ...state,
         [e.target.name]: e.target.value
     })
 }
-
+const add_image = (e) => {
+    if (e.target.files.length > 0) { 
+        const formData = new FormData()
+        formData.append('image',e.target.files[0])
+        dispatch(profile_image_upload(formData))
+    }
+   }
 const add = (e) => {
     e.preventDefault()
     dispatch(profile_info_add(state))
 }
+
+
+
 
     return (
         <div className='px-2 lg:px-7 py-5'>
@@ -58,7 +58,7 @@ const add = (e) => {
         <div className='w-full p-4 bg-[#6a5fdf] rounded-md text-[#d0d2d6]'>
             <div className='flex justify-center items-center py-3'>
                 {
-                    userInfo.image ?.image? <label htmlFor="img" className='h-[150px] w-[200px] relative p-3 cursor-pointer overflow-hidden'>
+                    userInfo?.image ? <label htmlFor="img" className='h-[150px] w-[200px] relative p-3 cursor-pointer overflow-hidden'>
                         <img src={userInfo.image} alt="" />
                         {
                         loader && <div className='bg-slate-600 absolute left-0 top-0 w-full h-full opacity-70 flex justify-center items-center z-20'>
@@ -110,7 +110,7 @@ const add = (e) => {
                     <span>Payment Account : </span>
                      <p>
                         {
-                            status === 'active' ? <span className='bg-red-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded'>{userInfo.payment}</span> : <span className='bg-blue-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded'>Click Active</span>
+                              status === 'active' ? <span className='bg-red-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded'>{userInfo.payment}</span> : <span className='bg-blue-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded'>Click Active</span>
                         }
                      </p>
                 </div> 
@@ -120,7 +120,7 @@ const add = (e) => {
 
         <div className='px-0 md:px-5 py-2'>
             {
-                !userInfo ?.shopInfo? <form onSubmit={add}>
+                 !userInfo?.shopInfo ?  <form onSubmit={add}>
                     <div className='flex flex-col w-full gap-1 mb-2'>
                 <label htmlFor="Shop">Shop Name</label>
                 <input value={state.shopName} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='shopName' id='Shop' placeholder='Shop Name' />            
