@@ -1,5 +1,10 @@
 import React from 'react';
 import { MdMarkEmailUnread } from "react-icons/md";
+import { FaFacebook } from "react-icons/fa6";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 import { BsFillTelephoneInboundFill } from "react-icons/bs";
 
@@ -22,6 +27,25 @@ const Header = () => {
                             </li>
 
                         </ul>
+                        <div>
+                            <div className='flex justify-center items-center gap-10'>
+                                <div className='flex justify-center items-center gap-4 text-black'>
+                                    <a href="https://www.facebook.com/fourat.toumi.71/"><FaFacebook  /></a>
+                                    <a href="https://x.com/fourat_toumi_"><FaSquareXTwitter  /> </a>
+                                    <a href="https://www.linkedin.com/in/fourat-toumi-7679232a7/"><FaLinkedin /></a>
+                                    <a href="https://github.com/ToumiFourat"><FaGithub /> </a> 
+                                </div>
+        <div className='flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]'>
+            <img src="/images/language.png" alt="" />
+            <span><IoMdArrowDropdown /></span>
+            <ul className='absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10'>
+            <li>Arabic</li>
+            <li>English</li>
+            </ul>
+        </div>
+
+                            </div>
+                        </div>
 
                     </div>
 
