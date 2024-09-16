@@ -51,6 +51,7 @@ const add = (e) => {
 
 
 
+
     return (
         <div className='px-2 lg:px-7 py-5'>
 <div className='w-full flex flex-wrap'>
@@ -127,19 +128,19 @@ const add = (e) => {
                 </div>  
 
             <div className='flex flex-col w-full gap-1 mb-2'>
-                <label htmlFor="division">Région</label>
-                <input className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='division' id='division' placeholder='division Name' />
+                <label htmlFor="division">Region</label>
+                <input value={state.division} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='division' id='division' placeholder='Region Name' />
 
             </div>  
 
             <div className='flex flex-col w-full gap-1 mb-2'>
-            <label htmlFor="sub">Gouvernorat</label>
-            <input value={state.district} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='district' id='district' placeholder='District Name' />            
+            <label htmlFor="sub">Governorate</label>
+            <input value={state.district} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='district' id='district' placeholder='Governorate Name' />            
             </div>  
 
             <div className='flex flex-col w-full gap-1 mb-2'>
-            <label htmlFor="sub">Délégation</label>
-            <input value={state.sub_district} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='sub_district' id='sub' placeholder='Sub District Name' />
+            <label htmlFor="sub">Delegation</label>
+            <input value={state.sub_district} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='sub_district' id='sub' placeholder='Delegation Name' />
             </div>  
 
             <button disabled={loader ? true : false}  className='bg-red-500 w-[200px] hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
