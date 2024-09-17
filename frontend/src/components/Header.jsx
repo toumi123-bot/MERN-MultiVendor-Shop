@@ -5,11 +5,16 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { FaUserCog } from "react-icons/fa";
+import { IoIosLock } from "react-icons/io";
 
 import { BsFillTelephoneInboundFill } from "react-icons/bs";
+import { Link } from 'react-router-dom';
 
 
 const Header = () => {
+    const user = false ;
+
     return (
         <div className='w-full bg-white'>
             <div className='header-top bg-[#caddff] md-lg:hidden'>
@@ -43,6 +48,19 @@ const Header = () => {
             <li>English</li>
             </ul>
         </div>
+
+        {
+    
+            user ? <Link className='flex cursor-pointer justify-center items-center gap-2
+            text-sm text-black' to='/dashboard'>
+                <span><FaUserCog /></span>
+                <span>Toumi Fourat </span>
+                 </Link> :  <Link className='flex cursor-pointer justify-center items-center gap-2
+            text-sm text-black' to='/login'>
+                <span><IoIosLock /></span>
+                <span>Login </span>
+                 </Link>
+        }
 
                             </div>
                         </div>
