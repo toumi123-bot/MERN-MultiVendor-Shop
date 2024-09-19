@@ -99,6 +99,45 @@ const Card = () => {
 
                                     </div>
 
+
+                        <div className='bg-white p-4'>
+                        {
+                                [1].map((p,i)=> <div className='w-full flex flex-wrap'>
+                                <div className='flex sm:w-full gap-2 w-7/12'>
+                                <div className='flex gap-2 justify-start items-center'>
+                                    <img className='w-[80px] h-[80px]' src={`http://localhost:3000/images/products/${i+1}.webp`} alt="" />
+                                    <div className='pr-4 text-slate-600'>
+                                        <h2 className='text-md font-semibold'>Product Name</h2>
+                                       <span className='text-sm'>Brand: Apple</span> 
+
+                                    </div>
+
+                                </div>
+                                </div>
+
+                                <div className='flex justify-between w-5/12 sm:w-full sm:mt-3'>
+    <div className='pl-4 sm:pl-0'>
+        <h2 className='text-lg text-orange-500'>255 TND</h2>
+        <p className='line-through'>300 TND</p>
+        <p>-15%</p>
+    </div>
+    <div className='flex gap-2 flex-col'>
+        <div className='flex bg-slate-200 h-[30px]
+        justify-center items-center text-xl'>
+            <div className='px-3 cursor-pointer'>- </div>
+            <div className='px-3 cursor-pointer'>2 </div>
+            <div className='px-3 cursor-pointer'>+ </div>
+        </div>
+        <button className='px-5 py-[3px] bg-red-500
+        text-white'>Delete</button>
+    </div>
+
+    </div>
+
+
+                            </div>)
+                            }
+                        </div>
                             </div>
                         }
 
