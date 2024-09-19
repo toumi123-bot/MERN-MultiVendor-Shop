@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link, useLocation } from 'react-router-dom';
 import { IoIosArrowForward } from "react-icons/io";
 
-const Shipping = () => {
-    const {state} = useLocation()
-    console.log(state)
+    const Shipping = () => {
+
+        const [res, setRes] = useState(false)
+    const [state, setState] = useState({
+    name: '',
+    address: '',
+    phone: '',
+    post: '',
+    province: '',
+    city: '',
+    area: ''
+    })
+
+    const inputHandle = (e) => {
+    setState({
+        ...state,
+        [e.target.name]: e.target.value
+    })
+    }
+    const save = (e) => {
+    e.preventDefault();
+    const { name,address,phone,post,province,city,area} = state;
+    if (name && address && phone && post && province && city && area) {
+        setRes(true)
+
+        
+    }
+    }
+
     return (
         <div className='w-full'>
             <Header/>
@@ -37,18 +63,24 @@ const Shipping = () => {
                         <div className='flex flex-col gap-3'>
                             <div className='bg-white p-6 shadow-sm rounded-md'>
                                 <h2 className='text-slate-600 font-bold pb-3'>Shipping Information</h2>
-                                <form>
+                                
+
+                {
+                    !res && <>
+
+
+<form onSubmit={save}>
                                     <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
                                         <div className='flex flex-col gap-1 mb-2 w-full'>
                                             <label htmlFor='name'>Name </label>
-                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            <input onChange={inputHandle} value={state.name} type='text' className='w-full px-3 py-2 border border-slate-200
                                             outline-none focus:border-green-500 rounded-md' name='name' id='name'
                                             placeholder='Name' />
                                         </div>
 
                                         <div className='flex flex-col gap-1 mb-2 w-full'>
                                             <label htmlFor='address'>Address </label>
-                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            <input onChange={inputHandle} value={state.address} type='text' className='w-full px-3 py-2 border border-slate-200
                                             outline-none focus:border-green-500 rounded-md' name='address' id='address'
                                             placeholder='Address' />
                                         </div>
@@ -59,14 +91,14 @@ const Shipping = () => {
                                     <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
                                         <div className='flex flex-col gap-1 mb-2 w-full'>
                                             <label htmlFor='phone'>Phone </label>
-                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            <input onChange={inputHandle} value={state.phone} type='text' className='w-full px-3 py-2 border border-slate-200
                                             outline-none focus:border-green-500 rounded-md' name='phone' id='phone'
                                             placeholder='Phone' />
                                         </div>
 
                                         <div className='flex flex-col gap-1 mb-2 w-full'>
                                             <label htmlFor='post'>Postal code </label>
-                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            <input onChange={inputHandle} value={state.post} type='text' className='w-full px-3 py-2 border border-slate-200
                                             outline-none focus:border-green-500 rounded-md' name='post' id='post'
                                             placeholder='Postal code' />
                                         </div>
@@ -77,14 +109,14 @@ const Shipping = () => {
                                     <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
                                         <div className='flex flex-col gap-1 mb-2 w-full'>
                                             <label htmlFor='province'>Governorate </label>
-                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            <input onChange={inputHandle} value={state.province} type='text' className='w-full px-3 py-2 border border-slate-200
                                             outline-none focus:border-green-500 rounded-md' name='province' id='province'
                                             placeholder='Governorate' />
                                         </div>
 
                                         <div className='flex flex-col gap-1 mb-2 w-full'>
                                             <label htmlFor='city'>City </label>
-                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            <input onChange={inputHandle} value={state.city} type='text' className='w-full px-3 py-2 border border-slate-200
                                             outline-none focus:border-green-500 rounded-md' name='city' id='city'
                                             placeholder='City' />
                                         </div>
@@ -95,7 +127,7 @@ const Shipping = () => {
                                     <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
                                         <div className='flex flex-col gap-1 mb-2 w-full'>
                                             <label htmlFor='area'>Neighborhood </label>
-                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            <input onChange={inputHandle} value={state.area} type='text' className='w-full px-3 py-2 border border-slate-200
                                             outline-none focus:border-green-500 rounded-md' name='area' id='area'
                                             placeholder='Neighborhood' />
                                         </div>
@@ -110,16 +142,25 @@ const Shipping = () => {
 
 
 
-                                <div className='flex flex-col gap-1'>
-                                    <h2 className='text-slate-600 font-semibold pb-2'>Deliver To</h2>
-                                    <p>
-                                        <span className='bg-blue-200 text-blue-800 text-sm font-medium mr-2 px-2
-                                        py-1 rounded'>Home</span>
-                                        <span>Phone , Postal code , Governorate , City , Neighborhood </span>
-                                        <span className='text-indigo-500 cursor-pointer'>Change </span>
-                                    </p>
-                                    <p className='text-slate-600 text-sm'>Email To fourat.toumi@gmail.com</p>
-                                </div>
+
+                    </>
+                }
+
+
+
+                {
+                    res &&   <div className='flex flex-col gap-1'>
+                    <h2 className='text-slate-600 font-semibold pb-2'>Deliver To {state.name}</h2>
+                    <p>
+                        <span className='bg-blue-200 text-blue-800 text-sm font-medium mr-2 px-2
+                        py-1 rounded'>Home</span>
+                        <span>Phone: {state.phone} , Postal code: {state.post} , Governorate: {state.province}, City: {state.city} , Neighborhood: {state.area} </span>
+                        <span onClick={() => setRes(false)} className='text-indigo-500 cursor-pointer'>Change </span>
+                    </p>
+                    <p className='text-slate-600 text-sm'>Email To fourat.toumi@gmail.com</p>
+                </div>
+
+                }
 
 
 
