@@ -16,7 +16,7 @@ const Card = () => {
             <div className='absolute left-0 top-0 w-full h-full bg-[#2422228a]'>
                 <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>
                     <div className='flex flex-col justify-center gap-1 items-center h-full w-full text-white'>
-                <h2 className='text-3xl font-bold'>Shop Page </h2>
+                <h2 className='text-3xl font-bold'>Card Page </h2>
                 <div className='flex justify-center items-center gap-2 text-2xl w-full'>
                         <Link to='/'>Home</Link>
                         <span className='pt-1'>
@@ -151,11 +151,45 @@ const Card = () => {
 
                             </div>
 
+
+                        </div>
+
+                        <div className='w-[33%] md-lg:w-full'>
+                            <div className='pl-3 md-lg:pl-0 md-lg:mt-5'>
+                            {
+            card_products.length > 0 && <div className='bg-white p-3 text-slate-600 flex flex-col gap-3'>
+                <h2 className='text-xl font-bold'>Order Summary</h2>
+                <div className='flex justify-between items-center'>
+                    <span>2 Items </span>
+                    <span>1000 TND </span>
+                </div>
+                <div className='flex justify-between items-center'>
+                    <span>Shipping Fee </span>
+                    <span>2000 TND </span>
+                </div>
+                <div className='flex gap-2'>
+                <input className='w-full px-3 py-2 border border-slate-200 outline-0 focus:border-green-500 rounded-sm' type="text" placeholder='Input Vauchar Coupon' />
+                <button className='px-5 py-[1px] bg-[#059473] text-white rounded-sm uppercase text-sm'>Apply</button>
+                </div>
+
+                <div className='flex justify-between items-center'>
+                    <span>Total</span>
+                    <span className='text-lg text-[#059473]'>600 TND </span>
+                </div>
+                <button  className='px-5 py-[6px] rounded-sm hover:shadow-red-500/50 hover:shadow-lg bg-red-500 text-sm text-white uppercase '>
+                    Process to Checkout 
+                </button>
+
+            </div>
+        }
+
+                            </div>
+
                         </div>
 
 
                     </div> : <div>
-                        <Link className='px-4 py-1 bg-indigo-500 text-white' to='/shops'> Show Now </Link>
+                        <Link className='px-4 py-1 bg-indigo-500 text-white' to='/shops'>Shop Now </Link>
                     </div>               
                     }
 
