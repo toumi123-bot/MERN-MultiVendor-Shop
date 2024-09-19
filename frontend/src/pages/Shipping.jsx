@@ -1,10 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { IoIosArrowForward } from "react-icons/io";
 
 const Shipping = () => {
+    const {state} = useLocation()
+    console.log(state)
     return (
         <div className='w-full'>
             <Header/>
@@ -52,7 +54,80 @@ const Shipping = () => {
                                         </div>
 
                                     </div>
+
+
+                                    <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
+                                        <div className='flex flex-col gap-1 mb-2 w-full'>
+                                            <label htmlFor='phone'>Phone </label>
+                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            outline-none focus:border-green-500 rounded-md' name='phone' id='phone'
+                                            placeholder='Phone' />
+                                        </div>
+
+                                        <div className='flex flex-col gap-1 mb-2 w-full'>
+                                            <label htmlFor='post'>Postal code </label>
+                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            outline-none focus:border-green-500 rounded-md' name='post' id='post'
+                                            placeholder='Postal code' />
+                                        </div>
+
+                                    </div>
+
+
+                                    <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
+                                        <div className='flex flex-col gap-1 mb-2 w-full'>
+                                            <label htmlFor='province'>Governorate </label>
+                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            outline-none focus:border-green-500 rounded-md' name='province' id='province'
+                                            placeholder='Governorate' />
+                                        </div>
+
+                                        <div className='flex flex-col gap-1 mb-2 w-full'>
+                                            <label htmlFor='city'>City </label>
+                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            outline-none focus:border-green-500 rounded-md' name='city' id='city'
+                                            placeholder='City' />
+                                        </div>
+
+                                    </div>
+
+
+                                    <div className='flex md:flex-col md:gap-2 w-full gap-5 text-slate-600'>
+                                        <div className='flex flex-col gap-1 mb-2 w-full'>
+                                            <label htmlFor='area'>Neighborhood </label>
+                                            <input type='text' className='w-full px-3 py-2 border border-slate-200
+                                            outline-none focus:border-green-500 rounded-md' name='area' id='area'
+                                            placeholder='Neighborhood' />
+                                        </div>
+
+                                        <div className='flex flex-col gap-1 mt-7 mb-2 w-full'>
+                                            <button className='px-3 py-2 rounded-sm hover:shadow-green-500/50
+                                            hover:shadow-lg bg-green-500 text-white'>Save Changes</button>
+                                        </div>
+
+                                    </div>
                                 </form>
+
+
+
+                                <div className='flex flex-col gap-1'>
+                                    <h2 className='text-slate-600 font-semibold pb-2'>Deliver To</h2>
+                                    <p>
+                                        <span className='bg-blue-200 text-blue-800 text-sm font-medium mr-2 px-2
+                                        py-1 rounded'>Home</span>
+                                        <span>Phone , Postal code , Governorate , City , Neighborhood </span>
+                                        <span className='text-indigo-500 cursor-pointer'>Change </span>
+                                    </p>
+                                    <p className='text-slate-600 text-sm'>Email To fourat.toumi@gmail.com</p>
+                                </div>
+
+
+
+
+
+
+
+
 
                             </div>
 
