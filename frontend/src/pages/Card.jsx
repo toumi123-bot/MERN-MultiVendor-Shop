@@ -154,19 +154,10 @@ const Card = () => {
                             </div>
                         }
 
-
-
-                                    
-
-
-
                                 </div>
 
                             </div>
-
-
                         </div>
-
                         <div className='w-[33%] md-lg:w-full'>
                             <div className='pl-3 md-lg:pl-0 md-lg:mt-5'>
                             {
@@ -194,7 +185,7 @@ const Card = () => {
                 </button>
 
             </div>
-        }
+                            }
 
                             </div>
 
