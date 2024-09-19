@@ -236,7 +236,7 @@ import { IoIosArrowForward } from "react-icons/io";
                     <span>Total</span>
                     <span className='text-lg text-[#059473]'>7000 TND </span>
                 </div>
-                <button  className='px-5 py-[6px] rounded-sm hover:shadow-red-500/50 hover:shadow-lg bg-red-500 text-sm text-white uppercase '>
+                <button disabled={res ? false : true}  className={`px-5 py-[6px] rounded-sm hover:shadow-red-500/50 hover:shadow-lg ${res ? ' bg-red-500' : ' bg-red-300'}  text-sm text-white uppercase`}>
                     Place Order
                 </button>
 
