@@ -14,9 +14,13 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { BsFillTelephoneInboundFill } from "react-icons/bs";
 import { Link,useLocation  } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
 
 
-const Header = ({categorys}) => {
+
+const Header = () => {
+
+    const {categorys} = useSelector(state => state.home)
    
     const {pathname} = useLocation()
     const wishlist_count = 3
