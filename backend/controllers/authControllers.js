@@ -2,7 +2,7 @@ const adminModel = require('../models/adminModel')
 const sellerModel = require('../models/sellerModel')
 const sellerCustomerModel  = require('../models/chat/sellerCustomerModel')
 const { responseReturn } = require('../utiles/response')
-const bcrpty = require('bcrypt')
+const bcrypt = require('bcrypt')
 const { createToken } = require('../utiles/tokenCreate')
 const formidable = require("formidable")
 const cloudinary = require('cloudinary').v2
@@ -14,7 +14,7 @@ class authControllers{
             const admin = await adminModel.findOne({email}).select('+password')
             // console.log(admin)
             if (admin) {
-                const match = await bcrpty.compare(password, admin.password)
+                const match = await bcrypt.compare(password, admin.password)
                 // console.log(match)
                 if (match) {
                     const token = await createToken({

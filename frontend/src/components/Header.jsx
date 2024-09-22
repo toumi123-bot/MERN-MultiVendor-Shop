@@ -31,7 +31,7 @@ const Header = () => {
     const [category, setCategory] = useState('')
     const [showShidebar, setShowSidebar] = useState(true);
     const [categoryShow, setCategoryShow] = useState(true);
-    const user = true
+    const user = false
     const search = () => {
         navigate(`/products/search?category=${category}&&value=${searchValue}`)
     }
@@ -70,7 +70,7 @@ const Header = () => {
                     user ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
                         <span> <FaUserCog/> </span>
                         <span>Toumi Fourat </span>
-                         </Link> : <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/login'>
+                         </Link> : <Link to='/login' className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' >
                         <span> <IoIosLock /> </span>
                         <span>Login </span>
                          </Link>

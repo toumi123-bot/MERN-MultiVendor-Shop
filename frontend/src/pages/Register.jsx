@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { FaFacebookF } from "react-icons/fa6";
 import { FaGoogle } from "react-icons/fa6"; 
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {customer_register,messageClear} from '../store/reducers/authReducer'
+import toast from 'react-hot-toast';
+import FadeLoader from 'react-spinners/FadeLoader';
 
 const Register = () => {
+
+    const {loader,userInfo,errorMessage,successMessage} = useSelector(state => state.auth)
+
+
     const [state, setState] = useState({
         name: '',
         email: '',
         password: ''
     })
+
+    const dispatch = useDispatch()
+
     const inputHandle = (e) => {
         setState({
             ...state,
@@ -20,11 +31,37 @@ const Register = () => {
  
     const register = (e) => {
         e.preventDefault()
-        console.log(state)
+        dispatch(customer_register(state))
     }
+    useEffect(() => { 
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())  
+        } 
+        if (errorMessage) {
+            toast.error(errorMessage)
+            dispatch(messageClear())
+        }
+    },[successMessage,errorMessage])
 
     return (
         <div>
+
+            {
+                loader && <div className='w-screen h-screen flex
+                justify-center items-center fixed left-0 top-0 bg
+                -[#38303033 z-[999]'>
+                    <FadeLoader/>
+                </div>
+            }
+
+
+
+
+
+
+
+
             <Header/>
 
             <div className='bg-slate-200 mt-4'>
@@ -50,7 +87,6 @@ const Register = () => {
                                 <label htmlFor='password'>Password</label>
                                 <input onChange={inputHandle} value={state.password}  className='w-full px-3 py-2 border border-slate-200 outline-none focus:border-green-500 rounded-md' type="password" name="password" id="password" placeholder='Password' required />
                             </div>
-
                             <button className='px-8 w-full py-2 bg-[#059473] shadow-lg hover:shadow-green-500/40 text-white rounded-md'>Register</button>
                             
 
