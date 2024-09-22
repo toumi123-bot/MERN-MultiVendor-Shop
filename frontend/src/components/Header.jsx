@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 const Header = () => {
+    const {userInfo} = useSelector(state => state.auth) 
 
     const navigate = useNavigate()
     const {categorys} = useSelector(state => state.home) 
@@ -67,9 +68,10 @@ const Header = () => {
                     </ul>
                 </div>
                 {
-                    user ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
+                        userInfo ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
+
                         <span> <FaUserCog/> </span>
-                        <span>Toumi Fourat </span>
+                        <span> {userInfo.name} </span>
                          </Link> : <Link to='/login' className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' >
                         <span> <IoIosLock /> </span>
                         <span>Login </span>
@@ -176,9 +178,9 @@ const Header = () => {
             </ul>
         </div>
         {
-            user ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
+             userInfo ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
                 <span> <FaUserCog/> </span>
-                <span>Toumi Fourat </span>
+                <span>{ userInfo.name }</span>
                  </Link> : <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/login'>
                 <span> <IoIosLock /> </span>
                 <span>Login </span>

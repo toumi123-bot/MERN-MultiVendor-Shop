@@ -11,7 +11,7 @@ import toast from 'react-hot-toast';
 const Register = () => {
 
     const  navigate = useNavigate()
-
+    
     const dispatch = useDispatch()
 
     const {loader,successMessage,errorMessage} = useSelector(state=>state.auth)
