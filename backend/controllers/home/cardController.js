@@ -39,6 +39,13 @@ class cardController{
         }
     }
     // END METHOD
+
+
+
+    get_card_products = async(req, res) => {
+        console.log('hello')
+    }
+    // END METHOD
     
 }
 
