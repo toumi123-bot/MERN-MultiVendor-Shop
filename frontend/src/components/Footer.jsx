@@ -52,12 +52,7 @@ const Footer = () => {
                         <li>
                             <Link>Delivery Information </Link>
                         </li>
-                        <li>
-                            <Link>Privacy Policy </Link>
-                        </li>
-                        <li>
-                            <Link>Blogs  </Link>
-                        </li>
+                       
                     </ul>
 
                 </div>
