@@ -39,6 +39,56 @@ export const get_card_products = createAsyncThunk(
 )
 // END METHOD
 
+export const delete_card_product = createAsyncThunk(
+    'card/delete_card_product',
+    async(card_id,{rejectWithValue, fulfillWithValue}) => { 
+        try {
+            const {data} = await api.delete(`/home/product/delete-card-product/${card_id}`)
+            
+            // console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+
+            
+        }
+    }
+)
+// END METHOD
+
+export const quantity_inc = createAsyncThunk(
+    'card/quantity_inc',
+    async(card_id,{rejectWithValue, fulfillWithValue}) => { 
+        try {
+            const {data} = await api.put(`/home/product/quantity-inc/${card_id}`)
+            
+            // console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+
+            
+        }
+    }
+)
+// END METHOD
+export const quantity_dec = createAsyncThunk(
+    'card/quantity_dec',
+    async(card_id,{rejectWithValue, fulfillWithValue}) => { 
+        try {
+            const {data} = await api.put(`/home/product/quantity-dec/${card_id}`)
+            
+            // console.log(data)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+
+            
+        }
+    }
+)
+// END METHOD
+
 
 
 
@@ -81,6 +131,18 @@ export const cardReducer = createSlice({
             state.shipping_fee = payload.shipping_fee
             state.outofstock_products = payload.outOfStockProduct
             state.buy_product_item = payload.buy_product_item 
+        })
+        .addCase(delete_card_product.fulfilled, (state, { payload }) => {
+            state.successMessage = payload.message;
+            
+        })
+        .addCase(quantity_inc.fulfilled, (state, { payload }) => {
+            state.successMessage = payload.message;
+            
+        })
+        .addCase(quantity_dec.fulfilled, (state, { payload }) => {
+            state.successMessage = payload.message;
+            
         })
         
         
