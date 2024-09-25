@@ -22,10 +22,10 @@ const Card = () => {
     const redirect = () => {
         navigate('/shipping',{
             state: {
-                products : [],
-                price: 1000,
-                shipping_fee : 2000,
-                items: 2
+                products : card_products,
+                price: price,
+                shipping_fee : shipping_fee,
+                items: buy_product_item 
             }
         })
        
@@ -174,7 +174,7 @@ const Card = () => {
             <div className='px-3 cursor-pointer'>{p.quantity} </div>
             <div className='px-3 cursor-pointer'>+ </div>
         </div>
-        <button  className='px-5 py-[3px] bg-red-500
+        <button onClick={() => dispatch(delete_card_product(p._id))} className='px-5 py-[3px] bg-red-500
         text-white'>Delete</button>
     </div>
 
