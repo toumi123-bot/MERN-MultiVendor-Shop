@@ -69,8 +69,10 @@ export const authReducer = createSlice({
             state.loader = true;
         })
         .addCase(customer_register.rejected, (state, { payload }) => {
+            const userInfo = decodeToken(payload.token)
             state.errorMessage = payload.error;
             state.loader = false;
+            state.userInfo=userInfo
         })
         .addCase(customer_register.fulfilled, (state, { payload }) => {
             state.successMessage = payload.message;
