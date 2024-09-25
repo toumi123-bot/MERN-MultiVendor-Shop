@@ -13,7 +13,7 @@ import { get_category } from './store/reducers/homeReducer';
 import { useDispatch } from 'react-redux';
 import CategoryShop from './pages/CategoryShop';
 import SearchProducts from './pages/SearchProducts';
-
+import Payment from './pages/Payment';
 
 function App() {
 
@@ -37,6 +37,7 @@ function App() {
       <Route path='/products?' element={<CategoryShop/>} />
       <Route path='/product/details/:slug' element={<Details/>} />
       <Route path='/products/search?' element={<SearchProducts/>} />
+      <Route path='/payment' element={<Payment/>} />
     </Routes>
     </BrowserRouter>
   );

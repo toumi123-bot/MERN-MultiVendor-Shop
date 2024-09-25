@@ -21,8 +21,8 @@ const authSchema = new Schema({
         type: String,
         required : true
     },
-    ShippingInfo: {
-        type: Object,
+    shippingInfo: {
+        type: String,
         required : true
     },
     delivery_status: {
