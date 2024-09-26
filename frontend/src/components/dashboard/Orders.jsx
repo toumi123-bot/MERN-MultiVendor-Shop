@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { get_orders } from '../../store/reducers/orderReducer';
+
 const Orders = () => {
     const navigate = useNavigate()
     const [state,setState] = useState('all')
     const dispatch = useDispatch()
-    const { orderId } = useParams()
+
     const {userInfo} = useSelector(state => state.auth)
     const { myOrders } = useSelector(state => state.order)
     useEffect(() => {
         if (userInfo?.id) {
             dispatch(get_orders({status: state, customerId: userInfo.id}))
         }
-    }, [orderId, state, userInfo.id])
+    }, [state])
     const redirect = (ord) => {
         let items = 0;
         for (let i = 0; i < ord.length; i++) {
