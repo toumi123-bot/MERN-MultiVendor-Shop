@@ -19,21 +19,23 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 const Header = () => {
+    
     const {userInfo} = useSelector(state => state.auth) 
-    const {card_product_count} = useSelector(state => state.card) 
+    const {card_product_count,wishlist_count} = useSelector(state => state.card) 
+
 
     const navigate = useNavigate()
     const {categorys} = useSelector(state => state.home) 
    
     const {pathname} = useLocation()
-    const wishlist_count = 3
+
     
 
     const [searchValue, setSearchValue] = useState('')
     const [category, setCategory] = useState('')
     const [showShidebar, setShowSidebar] = useState(true);
     const [categoryShow, setCategoryShow] = useState(true);
-    const user = false
+    
     const redirect_card_page = () =>{
         if (userInfo) {
             navigate('/card')
@@ -129,13 +131,13 @@ const Header = () => {
                     <div className='flex justify-center gap-5'>
                         <div className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                             <span className='text-xl text-green-500'><FaHeart /></span>
-            <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
-                {
-                    wishlist_count
-                }
-
-                                </div>
-                        </div>
+                            {
+                wishlist_count !== 0 && <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
+                {wishlist_count}
+                </div>
+            }                  
+                     
+                 </div>
 
                         <div onClick={redirect_card_page} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                             <span className='text-xl text-green-500'><PiShoppingCartFill  /></span>
