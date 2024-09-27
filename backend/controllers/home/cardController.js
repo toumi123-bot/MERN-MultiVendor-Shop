@@ -230,6 +230,9 @@ class cardController{
        
 
     }
+
+    //END METHOD
+
     
 }
 

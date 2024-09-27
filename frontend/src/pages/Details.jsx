@@ -28,7 +28,7 @@ const Details = () => {
     const {product,relatedProducts,moreProducts} = useSelector(state => state.home)
     const {userInfo } = useSelector(state => state.auth)
     const {errorMessage,successMessage } = useSelector(state => state.card)
-    console.log(slug)
+    
     useEffect(() => {
         dispatch(product_details(slug))
     },[slug])
@@ -323,7 +323,7 @@ const Details = () => {
                     </div>
     <div>
         {
-            state === 'reviews' ? <Reviews/> : <p className='py-5 text-slate-600'>
+            state === 'reviews' ? <Reviews product={product} /> : <p className='py-5 text-slate-600'>
                 {product.description}
             </p>
             
