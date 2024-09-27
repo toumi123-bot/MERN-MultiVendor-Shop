@@ -19,14 +19,14 @@ const OrderDetails = () => {
         Deliver To : {myOrder.shippingInfo?.name} </h2>
         <p>
             <span className='bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2 py-2 rounded'>Home</span>
-            <span className='text-slate-600 text-sm'>{myOrder.shippingInfo?.address}{myOrder.shippingInfo?.province}{myOrder.shippingInfo?.city}</span>
+            <span className='text-slate-600 text-sm'>{myOrder.shippingInfo?.address} , {myOrder.shippingInfo?.province} , {myOrder.shippingInfo?.city} , {myOrder.shippingInfo?.area}</span>
         </p>
         <p className='text-slate-600 text-md font-semibold'>
             Email To {userInfo.email }
         </p>
             </div>
             <div className='text-slate-600'>
-        <h2 className='font-mono'>Price : ${myOrder.price} Include Shipping</h2>
+        <h2 className='font-mono'>Price : {myOrder.price} TND Include Shipping</h2>
         <p className='font-mono'> Payment Status : <span className={`py-[1px] text-xs px-3 ${myOrder.payment_status === 'paid' ? 'bg-green-300 text-green-800' : 'bg-red-300 text-red-800' } rounded-md`}> {myOrder.payment_status} </span> </p>
         <p className='font-mono'> Order Status : <span className={`py-[1px] text-xs px-3 ${myOrder.delivery_status === 'paid' ? 'bg-green-300 text-green-800' : 'bg-red-300 text-red-800' } rounded-md`}> {myOrder.delivery_status} </span> </p> 
         </div>   
@@ -47,8 +47,8 @@ const OrderDetails = () => {
             </div>
         
         <div className='pl-4 flex flex-col'>
-                <h2 className='text-md text-green-800'>${p.price - Math.floor((p.price * p.discount) / 100)}</h2>
-                <p className='line-through'>{p.price}</p>
+                <h2 className='text-md text-green-800'>{p.price - Math.floor((p.price * p.discount) / 100)} TND</h2>
+                <p className='line-through'>{p.price} TND</p>
                 <p>-{p.discount}%</p>
         </div>
         </div>
