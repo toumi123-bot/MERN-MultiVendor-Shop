@@ -7,13 +7,13 @@ import RatingReact from 'react-rating'
 import { FaStar } from 'react-icons/fa';
 import { CiStar } from 'react-icons/ci';
 import { useDispatch, useSelector } from 'react-redux';
-import { customer_review , messageClear } from '../store/reducers/homeReducer';
+import { customer_review , get_reviews, messageClear } from '../store/reducers/homeReducer';
 import toast from 'react-hot-toast';
 
 const Reviews = ({product}) => {
     const dispatch = useDispatch()
-    const [parPage, setParPage] = useState(1)
-    const [pageNumber, setPageNumber] = useState(10)
+    const [parPage, setParPage] = useState(10)
+    const [pageNumber, setPageNumber] = useState(1)
     const {userInfo } = useSelector(state => state.auth)
     const {successMessage } = useSelector(state => state.home)
     const [rat, setRat] = useState('')
@@ -40,7 +40,14 @@ const Reviews = ({product}) => {
         
         
     },[successMessage])
-
+    useEffect(() => {
+        if (product._id) {
+            dispatch(get_reviews({
+                productId: product._id,
+                pageNumber
+            }))
+        }
+    },[pageNumber,product])
     return (
         <div className='mt-8'>
             <div className='flex gap-10 md-lg:flex-col'>
