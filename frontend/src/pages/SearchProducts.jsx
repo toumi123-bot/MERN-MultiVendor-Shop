@@ -110,7 +110,7 @@ const SearchProducts = () => {
                 )} 
              />  
          <div>
-         <span className='text-slate-800 font-bold text-lg'>${Math.floor(state.values[0])} - ${Math.floor(state.values[1])}</span>  
+         <span className='text-slate-800 font-bold text-lg'>{Math.floor(state.values[0])} TND - {Math.floor(state.values[1])} TND</span>  
            </div>
          </div>
          <div className='py-3 flex flex-col gap-4'>
