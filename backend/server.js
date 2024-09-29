@@ -34,7 +34,8 @@ const addUser = (customerId,socketId,userInfo) => {
             userInfo
         })
     }
-}
+} 
+
 
 
 
@@ -44,8 +45,8 @@ io.on('connection',(soc) =>{
 
     soc.on('add_user',(customerId,userInfo)=>{
         addUser(customerId,soc.id,userInfo)
-        console.log(allCustomer)
-    })
+         
+   })
 
 
 })
