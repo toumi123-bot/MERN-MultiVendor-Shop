@@ -2,7 +2,7 @@ const adminModel = require('../models/adminModel')
 const sellerModel = require('../models/sellerModel')
 const sellerCustomerModel  = require('../models/chat/sellerCustomerModel')
 const { responseReturn } = require('../utiles/response')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt'); // Assurez-vous que bcrypt est bien importé
 const { createToken } = require('../utiles/tokenCreate')
 const formidable = require("formidable")
 const cloudinary = require('cloudinary').v2
@@ -50,7 +50,7 @@ class authControllers{
             const seller = await sellerModel.findOne({email}).select('+password')
             // console.log(admin)
             if (seller) {
-                const match = await bcrpty.compare(password, seller.password)
+                const match = await bcrypt.compare(password, seller.password)
                 // console.log(match)
                 if (match) {
                     const token = await createToken({
@@ -88,7 +88,7 @@ class authControllers{
                 const seller = await sellerModel.create({
                     name,
                     email,
-                    password: await bcrpty.hash(password, 10),
+                    password: await bcrypt.hash(password, 10),
                     method : 'menualy',
                     shopInfo: {}
                 })
