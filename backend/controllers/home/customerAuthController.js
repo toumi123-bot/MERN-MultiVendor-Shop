@@ -38,7 +38,8 @@ class customerAuthController{
             }
             
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
+            responseReturn(res, 500, { error: 'Internal Server Error' });
         }
    }
    // End Method 
@@ -70,7 +71,8 @@ class customerAuthController{
      }
      
     } catch (error) {
-     console.log(error.message)
+        console.log(error.message);
+        responseReturn(res, 500, { error: 'Internal Server Error' });
     }
  }
 // End Method
