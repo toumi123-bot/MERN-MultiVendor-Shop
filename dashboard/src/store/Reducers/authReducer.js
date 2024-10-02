@@ -110,6 +110,17 @@ export const profile_info_add = createAsyncThunk(
             return ''
         }
     }
+    // end Method 
+    export const logout = createAsyncThunk('auth/logout', async ({ navigate }, { rejectWithValue }) => {
+        try {
+            const { data } = await api.get('/logout', { withCredentials: true });
+            return data; // Retourne le message de succès du backend
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    });
+    
+        // end Method 
 
  
 export const authReducer = createSlice({
@@ -126,6 +137,7 @@ export const authReducer = createSlice({
 
         messageClear : (state,_) => {
             state.errorMessage = ""
+            state.successMessage = ""; // Ajout pour réinitialiser le message de succès
         }
 
     },
@@ -188,11 +200,23 @@ export const authReducer = createSlice({
         .addCase(profile_info_add.pending, (state, { payload }) => {
             state.loader = true; 
         })
-        .addCase(profile_info_add.fulfilled, (state, { payload }) => {
-            state.loader = false;
-            state.userInfo = payload.userInfo
-            state.successMessage = payload.message
+        .addCase(logout.pending, (state) => {
+            state.loader = true;
         })
+        .addCase(logout.rejected, (state, { payload }) => {
+            state.loader = false;
+            state.errorMessage = payload.error; // Vérifiez si `payload.error` existe
+        })
+        .addCase(logout.fulfilled, (state, { payload }) => {
+            state.loader = false;
+            state.successMessage = payload.message; // Message de succès du backend
+            // Réinitialisation des valeurs d'état
+            state.token = null; // Réinitialise le token
+            state.role = ''; // Réinitialise le rôle
+            state.userInfo = ''; // Réinitialise les informations de l'utilisateur
+        });
+        
+
 
     }
 
