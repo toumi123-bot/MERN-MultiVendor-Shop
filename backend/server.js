@@ -89,8 +89,12 @@ io.on('connection', (soc) => {
     soc.on('disconnect',() => {
         console.log('user disconnect')
         remove(soc.id)
-  
         io.emit('activeSeller', allSeller) 
+    })
+    soc.on('send_message_seller_to_admin',(msg) => { 
+        if (admin.socketId) {
+            soc.to(admin.socketId).emit('receved_seller_message', msg)
+        }
     })
     soc.on('add_admin',(adminInfo) => {
         delete adminInfo.email
