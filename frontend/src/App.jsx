@@ -44,6 +44,7 @@ function App() {
       <Route path='/shipping' element={<Shipping/>} />
       <Route path='/products?' element={<CategoryShop/>} />
       <Route path='/product/details/:slug' element={<Details/>} />
+      
       <Route path='/products/search?' element={<SearchProducts/>} />
       <Route path='/payment' element={<Payment/>} />
       <Route path='/dashboard' element={<ProtectUser/>} >
