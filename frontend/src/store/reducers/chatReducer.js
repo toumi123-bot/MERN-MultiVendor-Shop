@@ -48,7 +48,7 @@ export const chatReducer = createSlice({
             state.successMessage = ""
         },
         updateMessage: (state, {payload}) => {
-            state.fb_messages = [...state.fb_messages,payload]
+            state.fb_messages = [...state.fb_messages, payload]
         }
 
     },
