@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { FaList } from 'react-icons/fa6';
 import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
-import { get_admin_message, get_sellers, send_message_seller_admin } from '../../store/Reducers/chatReducer'
+import { get_admin_message, get_sellers, send_message_seller_admin ,messageClear} from '../../store/Reducers/chatReducer'
 import { Link, useParams } from 'react-router-dom';
 import { FaRegFaceGrinHearts } from "react-icons/fa6";
+import {socket} from '../../utils/utils'
 const ChatSeller = () => {
 
     const [show, setShow] = useState(false) 
     const { sellerId } = useParams()
     const [text,setText] = useState('')
-    const {sellers,activeSeller,seller_admin_message,currentSeller} = useSelector(state => state.chat)
+    const {sellers,activeSeller,seller_admin_message,currentSeller,successMessage} = useSelector(state => state.chat)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(get_sellers())
@@ -30,6 +31,12 @@ const ChatSeller = () => {
             dispatch(get_admin_message(sellerId))
         }
     },[sellerId])
+    useEffect(() => {
+        if (successMessage) {
+            socket.emit('send_message_admin_to_seller',seller_admin_message[seller_admin_message.length - 1])
+            dispatch(messageClear())
+        }
+    },[successMessage])
     return (
     <div className='px-2 lg:px-7 py-5'>
         <div className='w-full bg-[#6a5fdf] px-4 py-4 rounded-md h-[calc(100vh-140px)]'>
