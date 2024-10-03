@@ -109,6 +109,23 @@ export const get_seller_request = createAsyncThunk(
 )
 
   // End Method 
+  export const create_stripe_connect_account = createAsyncThunk(
+    'seller/create_stripe_connect_account',
+    async() => {
+
+        try {
+
+            const {data} = await api.get(`/payment/create-stripe-connect-account`,{withCredentials: true}) 
+            
+            
+        } catch (error) {
+            // console.log(error.response.data)
+            
+        }
+    }
+)
+
+  // End Method 
 
 
  
