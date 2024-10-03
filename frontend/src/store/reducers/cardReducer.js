@@ -130,9 +130,6 @@ export const remove_wishlist = createAsyncThunk(
 )
 // End Method 
 
-
-
-
 export const cardReducer = createSlice({
     name: 'card',
     initialState:{
