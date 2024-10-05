@@ -4,6 +4,7 @@ const cardModel = require('../../models/cardModel')
 const moment = require("moment")
 const { responseReturn } = require('../../utiles/response')
 const { mongo: {ObjectId}} = require('mongoose')
+const stripe = require ('stripe')('sk_test_51Q5pOLF4md42MzNFfd346XC4Ei7UQAadIsfGlApQRmoY7LTNTKCrkzzrXV7LHegwEVhXjoGd4LnCkQI6dDvDiFAB00dT4MULfg')
 class orderController{
     paymentCheck = async (id) => {
         try {
@@ -276,5 +277,24 @@ get_seller_order = async (req,res) => {
     }
   }
   // End Method 
+
+  create_payment = async (req,res) =>{
+    const {price} = req.body
+    try {
+        const amount = Math.round(price * 100 * 0.32556603773584905660377358490566);
+        const payment = await stripe.paymentIntents.create({
+            amount: amount,
+            currency: 'usd',
+            automatic_payment_methods: {
+                enabled: true
+            }
+        })
+        responseReturn(res,200, { clientSecret: payment.client_secret})
+    } catch (error) {
+        console.log(error.message)
+    }
+  }
+
+  //END METHOD
 }
 module.exports = new orderController()

@@ -19,7 +19,7 @@ const CheckoutForm = (orderId) => {
         setIsLoading(true)
         const { error } = await stripe.confirmPayment({
             elements,
-            coconfirmParams: {
+            confirmParams: {
                 return_url: 'http://localhost:3000/order/confirm'
             }
         })
