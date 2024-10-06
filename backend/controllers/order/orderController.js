@@ -296,5 +296,14 @@ get_seller_order = async (req,res) => {
   }
 
   //END METHOD
+  order_confirm = async (req,res) => {
+    const {orderId} = req.params
+    console.log(orderId)
+  }
+   // End Method 
+
+
+
+
 }
 module.exports = new orderController()

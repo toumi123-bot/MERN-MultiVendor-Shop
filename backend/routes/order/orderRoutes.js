@@ -11,6 +11,7 @@ router.get('/home/customer/get-orders/:customerId/:status',orderController.get_o
 router.get('/home/customer/get-order-details/:orderId',orderController.get_order_details)
 router.get('/admin/order/:orderId',orderController.get_admin_order)
 router.post('/order/create-payment',orderController.create_payment)
+router.get('/order/confirm/:orderId',orderController.order_confirm)
 //ADMIN
 
 router.get('/admin/orders',orderController.get_admin_orders)
