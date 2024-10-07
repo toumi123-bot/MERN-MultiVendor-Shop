@@ -25,28 +25,21 @@ const ConfirmOrder = () => {
             return
         }
         stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-            if (paymentIntent) {
-                switch(paymentIntent.status){
-                    case "succeeded":
-                        setMessage('succeeded');
-                        break;
+            switch(paymentIntent.status){
+                case "succeeded":
+                    setMessage('succeeded')
+                    break
                     case "processing":
-                        setMessage('processing');
-                        break;
+                    setMessage('processing')
+                    break
                     case "requires_payment_method":
-                        setMessage('failed');
-                        break;
+                    setMessage('failed')
+                    break
                     default:
-                        setMessage('failed');
-                }
-            } else {
-                setMessage('failed'); // Gérer le cas où paymentIntent est undefined
+                    setMessage('failed')
+
             }
-        }).catch((error) => {
-            console.error("Error retrieving payment intent:", error);
-            setMessage('failed'); // Vous pouvez également gérer les erreurs ici
-        });
-        
+        })
     },[stripe])
 
     const get_load = async () => {
@@ -59,9 +52,7 @@ const ConfirmOrder = () => {
     },[])
 
     const update_payment = async () => {
-        
         const orderId = localStorage.getItem('orderId')
-        
         if (orderId) {
             try {
                 await axios.get(`http://localhost:5000/api/order/confirm/${orderId}`)
@@ -75,6 +66,7 @@ const ConfirmOrder = () => {
 
     useEffect(() => {
         if (message === 'succeeded') {
+            setLoader(false);  // Désactiver le loader immédiatement pour tester
             update_payment()
         }
     },[message])
@@ -90,7 +82,7 @@ const ConfirmOrder = () => {
                 <Link className='px-5 py-2 bg-green-500 rounded-sm text-white' to="/dashboard/my-orders">Back to Dashboard </Link>
                 </> : <FadeLoader/> 
             }
-
+            
         </div>
     );
 };
