@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdMarkEmailUnread } from "react-icons/md";
 import { FaFacebook } from "react-icons/fa6";
 import { FaSquareXTwitter } from "react-icons/fa6";
@@ -15,11 +15,11 @@ import { BsFillTelephoneInboundFill } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-
+import { get_card_products, get_wishlist_products } from '../store/reducers/cardReducer';
 
 
 const Header = () => {
-    
+    const dispatch = useDispatch()
     const {userInfo} = useSelector(state => state.auth) 
     const {card_product_count,wishlist_count} = useSelector(state => state.card) 
 
@@ -45,7 +45,13 @@ const Header = () => {
     }
     const search = () => {
         navigate(`/products/search?category=${category}&&value=${searchValue}`)
-    }
+    } 
+    useEffect(() => {
+        if (userInfo) {
+            dispatch(get_card_products(userInfo.id))
+            dispatch(get_wishlist_products(userInfo.id))
+        }  
+    },[userInfo])
         return (
                 <div className='w-full bg-white'>
                     <div className='header-top bg-[#caddff] md-lg:hidden'>
@@ -129,7 +135,7 @@ const Header = () => {
                     </ul>
                     <div className='flex md-lg:hidden justify-center items-center gap-5'>
                     <div className='flex justify-center gap-5'>
-                        <div className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
+                    <div onClick={() => navigate(userInfo ? '/dashboard/my-wishlist' : '/login') } className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                             <span className='text-xl text-green-500'><FaHeart /></span>
                             {
                 wishlist_count !== 0 && <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
