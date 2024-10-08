@@ -31,7 +31,8 @@ class productController{
     
             try {
                 let allImageUrl = [];
-    
+                
+
                 for (let i = 0; i < images.length; i++) {
                     try {
                         const result = await cloudinary.uploader.upload(images[i].filepath, { folder: 'products' });

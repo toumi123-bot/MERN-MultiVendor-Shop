@@ -27,7 +27,19 @@ export const add_banner = createAsyncThunk(
     }
 )
   // End Method 
- 
+  export const update_banner = createAsyncThunk(
+    'banner/update_banner',
+    async({bannerId,info} ,{rejectWithValue, fulfillWithValue}) => { 
+        try {
+             
+            const {data} = await api.put(`/banner/update/${bannerId}`,info,{withCredentials: true})  
+            return fulfillWithValue(data)
+        } catch (error) { 
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+  // End Method 
 export const bannerReducer = createSlice({
     name: 'banner',
     initialState:{
@@ -60,7 +72,18 @@ export const bannerReducer = createSlice({
         .addCase(get_banner.fulfilled, (state, { payload }) => {            
             state.banner = payload.banner; 
         })
-
+        .addCase(update_banner.pending, (state, { payload }) => {
+            state.loader = true; 
+        })
+        .addCase(update_banner.rejected, (state, { payload }) => {
+            state.loader = false; 
+            state.errorMessage = payload.error; 
+        })
+        .addCase(update_banner.fulfilled, (state, { payload }) => {
+            state.loader = false; 
+            state.successMessage = payload.message; 
+            state.banner = payload.banner; 
+        })
 
         
     }
