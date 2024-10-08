@@ -85,7 +85,9 @@ const Payments = () => {
 
                 <div className='flex justify-between items-center p-5 bg-[#fde2ff] rounded-md gap-3'>
                     <div className='flex flex-col justify-start items-start text-[#5c5a5a]'>
-                    <h2 className='text-2xl font-bold'>{availableAmount} TND</h2>
+                    <h2 className='text-2xl font-bold'>
+                        {availableAmount >= 11 ? `${availableAmount - 11} TND` : '0 TND'}
+                    </h2>
                         <span className='text-sm font-bold'>Available Amount</span>
                     </div>
 

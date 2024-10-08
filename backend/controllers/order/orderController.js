@@ -286,7 +286,7 @@ get_seller_order = async (req,res) => {
   create_payment = async (req,res) =>{
     const {price} = req.body
     try {
-        const amount = Math.round(price * 100 * 0.32556603773584905660377358490566);
+        const amount = Math.round(price * 100 * 0.33);
         const payment = await stripe.paymentIntents.create({
             amount: amount,
             currency: 'usd',

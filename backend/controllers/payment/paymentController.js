@@ -120,9 +120,11 @@ class paymentController{
         const pendingAmount = this.sumAmount(pendingWithdrows)
         const withdrowAmount = this.sumAmount(successWithdrows)
         const totalAmount = this.sumAmount(payments)
+        
         let availableAmount = 0;
         if (totalAmount > 0) {
-            availableAmount = totalAmount - (pendingAmount + withdrowAmount)
+     
+            availableAmount =  (totalAmount - (pendingAmount + withdrowAmount )) 
         }
 
         responseReturn(res, 200,{
@@ -165,25 +167,37 @@ class paymentController{
         // End Method 
 
         payment_request_confirm = async (req, res) => {
-            const {paymentId} = req.body 
+            const {paymentId} = req.body;
             try {
-                const payment = await withdrowRequest.findById(paymentId)
+                // Récupérer la demande de retrait
+                const payment = await withdrowRequest.findById(paymentId);
+        
+                // Récupérer le stripeId du vendeur
                 const {stripeId} = await stripeModel.findOne({
                     sellerId: new ObjectId(payment.sellerId)
-                })
+                });
+        
+                // Calculer le montant avec un taux de 32.56 % (ou toute autre proportion)
+                const amount = Math.round(payment.amount * 100 * 0.33); // Exemple d'ajustement
+        
+                // Créer le transfert Stripe
                 await stripe.transfers.create({
-                    amount: payment.amount * 100,
+                    amount: amount, // Montant ajusté
                     currency: 'usd',
                     destination: stripeId
-                })
-                 
-                await withdrowRequest.findByIdAndUpdate(paymentId, {status: 'success'})
-                responseReturn(res, 200, {payment, message: 'Request Confirm Success'})
-            } catch (error) { 
-                console.log(error)
-                responseReturn(res, 500,{ message: 'Internal Server Error'})
+                });
+        
+                // Mettre à jour le statut de la demande de retrait
+                await withdrowRequest.findByIdAndUpdate(paymentId, { status: 'success' });
+        
+                // Réponse de succès
+                responseReturn(res, 200, { payment, message: 'Request Confirm Success' });
+            } catch (error) {
+                console.log(error);
+                responseReturn(res, 500, { message: 'Internal Server Error' });
             }
         }
+        
       // End Method 
 
         
