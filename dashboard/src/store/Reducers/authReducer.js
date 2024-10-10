@@ -196,9 +196,17 @@ export const authReducer = createSlice({
             state.userInfo = payload.userInfo
             state.successMessage = payload.message
         })
-
-        .addCase(profile_info_add.pending, (state, { payload }) => {
-            state.loader = true; 
+        .addCase(profile_info_add.pending, (state) => {
+            state.loader = true; // Début du chargement
+        })
+        .addCase(profile_info_add.fulfilled, (state, { payload }) => {
+            state.loader = false; // Fin du chargement
+            state.successMessage = payload.message; // Stockez le message de succès
+            state.userInfo = payload.userInfo; // Mettez à jour userInfo avec les nouvelles informations
+        })
+        
+        .addCase(profile_info_add.rejected, (state) => {
+            state.loader = false; // Fin du chargement en cas d'erreur
         })
         .addCase(logout.pending, (state) => {
             state.loader = true;

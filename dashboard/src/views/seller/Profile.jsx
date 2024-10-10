@@ -9,7 +9,11 @@ import { PropagateLoader } from 'react-spinners';
 import { overrideStyle } from '../../utils/utils'; 
 import { create_stripe_connect_account } from '../../store/Reducers/sellerReducer';
 const Profile = () => {
+    const [isEditing1, setIsEditing1] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+
     const [state, setState] =  useState({
+       
         division: '',
         district: '',
         shopName: '',
@@ -18,16 +22,16 @@ const Profile = () => {
     const dispatch = useDispatch()
     const { userInfo,loader,successMessage } = useSelector(state => state.auth)
 
- 
+  
 
 
     useEffect(() => {
 
         if (successMessage) {
             toast.success(successMessage)
-            messageClear() 
+            dispatch(messageClear())
         } 
-    },[successMessage])
+    },[successMessage,dispatch])
 
 
   
@@ -44,11 +48,20 @@ const add_image = (e) => {
         dispatch(profile_image_upload(formData))
     }
    }
-const add = (e) => {
-    e.preventDefault()
+   const add = (e) => {
+    e.preventDefault();
     dispatch(profile_info_add(state))
+    
 }
 
+
+const toggleEdit1 = () => {
+    
+    setIsEditing1(!isEditing1);
+};
+const toggleEdit = () => {
+    setIsEditing(!isEditing);
+};
 
 
 
@@ -91,7 +104,36 @@ const add = (e) => {
 
         <div className='px-0 md:px-5 py-2'>
             <div className='flex justify-between text-sm flex-col gap-2 p-4 bg-slate-800 rounded-md relative'>
-                <span className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50 absolute right-2 top-2 cursor-pointer'><FaRegEdit /> </span>
+            
+
+
+
+
+                {isEditing1 ? (
+                                    <form onSubmit={add}>
+                                        <div className='flex flex-col w-full gap-1 mb-2'>
+                                            <label htmlFor="name">Name</label>
+                                            <input value={state.name} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='name' id='Name' placeholder='Name' />
+                                        </div>
+                                        <div className='flex flex-col w-full gap-1 mb-2'>
+                                            <label htmlFor="email">Email</label>
+                                            <input value={state.email} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='email' id='email' placeholder='Email' />
+                                        </div>
+                                        <div className='flex flex-col w-full gap-1 mb-2'>
+                                            <label htmlFor="role">Role</label>
+                                            <input value={state.role} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='role' id='role' placeholder='Role' />
+                                        </div>
+                                        <div className='flex flex-col w-full gap-1 mb-2'>
+                                            <label htmlFor="Status">Status</label>
+                                            <input value={state.status} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='status' id='status' placeholder='Status' />
+                                        </div>
+                                        <button disabled={loader} className='bg-red-500 w-[200px] hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
+                                            {loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Save Changes'}
+                                        </button>
+                                    </form>
+                                ) : (
+                                    <>
+                                        
                 <div className='flex gap-2'>
                     <span>Name : </span>
                     <span>{userInfo.name}</span> 
@@ -108,6 +150,23 @@ const add = (e) => {
                     <span>Status : </span>
                     <span>{userInfo.status}</span> 
                 </div>
+                                    </>
+                                )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
                 <div className='flex gap-2'>
                     <span>Payment Account : </span>
                      <p>
@@ -150,23 +209,58 @@ const add = (e) => {
             } 
             </button>
                 </form> : <div className='flex justify-between text-sm flex-col gap-2 p-4 bg-slate-800 rounded-md relative'>
-                <span className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50 absolute right-2 top-2 cursor-pointer'><FaRegEdit /> </span>
-                <div className='flex gap-2'>
-                    <span>Shop Name : </span>
-                    <span>{ userInfo.shopInfo?.shopName }</span> 
-                </div>
-                <div className='flex gap-2'>
-                    <span>Région : </span>
-                    <span>{ userInfo.shopInfo?.division }</span> 
-                </div>
-                <div className='flex gap-2'>
-                    <span>Gouvernorat : </span>
-                    <span>{ userInfo.shopInfo?.district }</span> 
-                </div>
-                <div className='flex gap-2'>
-                    <span>Délégation : </span>
-                    <span>{ userInfo.shopInfo?.sub_district }</span> 
-                </div>
+                <span onClick={toggleEdit} className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50 absolute right-2 top-2 cursor-pointer'>
+                    <FaRegEdit />
+                </span>
+
+
+
+                {isEditing ? (
+                                    <form onSubmit={add}>
+                                        <div className='flex flex-col w-full gap-1 mb-2'>
+                                            <label htmlFor="Shop">Shop Name</label>
+                                            <input value={state.shopName} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='shopName' id='Shop' placeholder='Shop Name' />
+                                        </div>
+                                        <div className='flex flex-col w-full gap-1 mb-2'>
+                                            <label htmlFor="division">Region</label>
+                                            <input value={state.division} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='division' id='division' placeholder='Region Name' />
+                                        </div>
+                                        <div className='flex flex-col w-full gap-1 mb-2'>
+                                            <label htmlFor="district">Governorate</label>
+                                            <input value={state.district} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='district' id='district' placeholder='Governorate Name' />
+                                        </div>
+                                        <div className='flex flex-col w-full gap-1 mb-2'>
+                                            <label htmlFor="sub">Delegation</label>
+                                            <input value={state.sub_district} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border border-slate-700 rounded-md text-[#d0d2d6]' type="text" name='sub_district' id='sub' placeholder='Delegation Name' />
+                                        </div>
+                                        <button disabled={loader} className='bg-red-500 w-[200px] hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
+                                            {loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : 'Save Changes'}
+                                        </button>
+                                    </form>
+                                ) : (
+                                    <>
+                                        <div className='flex gap-2'>
+                                            <span>Shop Name : </span>
+                                            <span>{userInfo.shopInfo?.shopName}</span>
+                                        </div>
+                                        <div className='flex gap-2'>
+                                            <span>Région : </span>
+                                            <span>{userInfo.shopInfo?.division}</span>
+                                        </div>
+                                        <div className='flex gap-2'>
+                                            <span>Gouvernorat : </span>
+                                            <span>{userInfo.shopInfo?.district}</span>
+                                        </div>
+                                        <div className='flex gap-2'>
+                                            <span>Délégation : </span>
+                                            <span>{userInfo.shopInfo?.sub_district}</span>
+                                        </div>
+                                    </>
+                                )}
+
+
+
+
                 
             </div> 
             }
@@ -183,7 +277,7 @@ const add = (e) => {
     </div>
 
 
-
+{
     <div className='w-full md:w-6/12'>
         <div className='w-full pl-0 md:pl-7 mt-6 md:mt-0'>
         <div className='bg-[#6a5fdf] rounded-md text-[#d0d2d6] p-4'>
@@ -214,6 +308,7 @@ const add = (e) => {
         </div>
 
     </div>
+    }
 
 
 
