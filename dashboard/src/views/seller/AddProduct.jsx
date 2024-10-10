@@ -11,6 +11,10 @@
     const AddProduct = () => {
         const dispatch = useDispatch()
         const {categorys} = useSelector(state => state.category)
+        const { shopInfo } = useSelector(state => state.auth.userInfo);
+        const shopName = shopInfo.shopName; // Correct access to the shop name
+        
+
         const { loader,successMessage,errorMessage } = useSelector(state => state.product)
         
         useEffect(()=>{
@@ -135,7 +139,7 @@
             formData.append('stock',state.stock)
             formData.append('discount',state.discount)
             formData.append('brand',state.brand)
-            formData.append('shopName','BimaStore')
+            formData.append('shopName',shopName)
             formData.append('category',category)
             for (let i = 0; i < images.length; i++) {
                 formData.append('images',images[i])
