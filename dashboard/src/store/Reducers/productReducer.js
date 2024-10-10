@@ -97,6 +97,22 @@ export const get_products = createAsyncThunk(
 
   // End Method 
 
+  export const delete_product = createAsyncThunk(
+    'product/delete_product',
+    async(id,{rejectWithValue }) => {
+        
+        try { 
+             
+            const response = await api.delete(`/products/${id}`);  
+            return response.data;
+        } catch (error) {  
+            return rejectWithValue(error.response.data.message)
+        }
+    }
+)
+
+
+//END METHOD
 
 
 
@@ -160,6 +176,13 @@ export const productReducer = createSlice({
         .addCase(product_image_update.fulfilled, (state, { payload }) => { 
             state.product = payload.product 
             state.successMessage = payload.message  
+        })
+        .addCase(delete_product.fulfilled, (state, action) => {
+            state.products = state.products.filter(prod => prod._id !== action.meta.arg);
+            state.successMessage = action.payload.message; 
+        })
+        .addCase(delete_product.rejected, (state,action) => { 
+            state.errorMessage = action.payload; 
         })
 
 

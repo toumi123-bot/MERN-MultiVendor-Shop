@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Pagination from '../Pagination'; 
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { get_products } from '../../store/Reducers/productReducer';
+import { get_products,delete_product } from '../../store/Reducers/productReducer';
 import { LuImageMinus } from "react-icons/lu";
 const Products = () => {
 
@@ -29,6 +29,13 @@ const Products = () => {
 
     },[dispatch,searchValue, currentPage,parPage])
 
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure to delete product ?')) {
+
+            dispatch(delete_product(id));
+
+        }
+    }
     return (
         <div className='px-2 lg:px-7 pt-5'>
             <h1 className='text-[#000000] font-semibold text-lg mb-3'>All Products</h1>
@@ -80,7 +87,7 @@ const Products = () => {
         <Link to={`/seller/dashboard/edit-product/${d._id}`} className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'> <FaEdit/> </Link> 
         <Link to={`/seller/dashboard/add-banner/${d._id}`} className='p-[6px] bg-sky-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'> <LuImageMinus /> </Link> 
         <Link className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'> <FaEye/> </Link>
-        <Link className='p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50'> <FaTrash/> </Link> 
+        <Link className='p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50' onClick={() => handleDelete(d._id)}> <FaTrash/> </Link> 
         </div>
         
         </td>

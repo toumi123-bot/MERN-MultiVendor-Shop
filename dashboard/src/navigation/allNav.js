@@ -6,7 +6,7 @@ import { FaCodePullRequest } from "react-icons/fa6";
 import { IoIosChatbubbles } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { MdViewList } from "react-icons/md";
-import { TbBasketDiscount } from "react-icons/tb";
+
 import { BsCartCheck } from "react-icons/bs"; 
 import { IoChatbubbles } from "react-icons/io5";
 import { BsFillChatQuoteFill } from "react-icons/bs";
@@ -90,43 +90,37 @@ export const allNav = [
         role : 'seller',
         path: '/seller/dashboard/products'
     },
+    
     {
         id : 12,
-        title : 'Discount Product',
-        icon : <TbBasketDiscount />,
-        role : 'seller',
-        path: '/seller/dashboard/discount-product'
-    },
-    {
-        id : 13,
         title : 'Orders',
         icon : <BsCartCheck />,
         role : 'seller',
         path: '/seller/dashboard/orders'
     },
     {
-        id : 14,
+        id : 13,
         title : 'Payments',
         icon : <MdPayment />,
         role : 'seller',
         path: '/seller/dashboard/payments'
     },
     {
-        id : 15,
+        id : 14,
         title : 'Chat-Customer',
         icon : <IoChatbubbles />,
         role : 'seller',
         path: '/seller/dashboard/chat-customer'
     },
     {
-        id : 16,
+        id : 15,
         title : 'Chat-Support',
         icon : <BsFillChatQuoteFill />,
         role : 'seller',
         path: '/seller/dashboard/chat-support'
     },
     {
-        id : 17,
+        id : 16,
         title : 'Profile',
         icon : <CgProfile />,
         role : 'seller',
