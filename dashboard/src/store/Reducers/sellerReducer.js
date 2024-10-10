@@ -109,6 +109,7 @@ export const get_seller_request = createAsyncThunk(
 )
 
 
+
 // End Method 
 export const create_stripe_connect_account = createAsyncThunk(
   'seller/create_stripe_connect_account',
@@ -146,6 +147,7 @@ export const active_stripe_connect_account = createAsyncThunk(
 )
 
 // End Method 
+
 
  
 export const sellerReducer = createSlice({

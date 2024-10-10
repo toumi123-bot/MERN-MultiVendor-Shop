@@ -21,4 +21,9 @@ router.put('/admin/order-status/update/:orderId',orderController.admin_order_sta
 router.get('/seller/orders/:sellerId',orderController.get_seller_orders)
 router.get('/seller/order/:orderId',orderController.get_seller_order)
 router.put('/seller/order-status/update/:orderId',orderController.seller_order_status_update)
+
+// AUTRE
+router.put('/product/:productId/decrease-stock',orderController.decrease_stock)
+router.put('/product/:productId/increase-stock',orderController.increase_stock)
+
 module.exports = router

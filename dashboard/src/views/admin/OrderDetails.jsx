@@ -1,25 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { admin_order_status_update, get_admin_order,messageClear} from '../../store/Reducers/OrderReducer';
+import { admin_order_status_update, decreaseProductStock, get_admin_order,increaseProductStock,messageClear} from '../../store/Reducers/OrderReducer';
 import toast from 'react-hot-toast';
+import { get_seller } from '../../store/Reducers/sellerReducer';
 const OrderDetails = () => {
     const { orderId } = useParams() 
     const dispatch = useDispatch() 
     const [status, setStatus] = useState('')
     const { order,errorMessage,successMessage } = useSelector(state => state.order)
+    // Sélectionner l'état de l'ordre
+    const products = useSelector((state) => state.order.order.products);
+    // Vérifier et récupérer l'ID du vendeur (sellerId)
+    const sellerId = products?.[0]?.sellerId;
+
+    const { seller } = useSelector(state => state.seller); // Récupérer le vendeur du store Redux
     
+    // Suivre les produits ajustés avec un état local
+    const [adjustedProducts, setAdjustedProducts] = useState({});
     useEffect(() => {
         setStatus(order?.delivery_status)
     },[order])
     useEffect(() => {
         dispatch(get_admin_order(orderId))
-    },[orderId])
+        if (sellerId) {
+            dispatch(get_seller(sellerId)); // Déclencher la récupération du nom du vendeur
+        }
+    },[orderId , sellerId])
     
     const status_update = (e) => {
-        dispatch(admin_order_status_update({orderId, info: {status: e.target.value} }))
-        setStatus(e.target.value)
-    }
+        const newStatus = e.target.value;
+        dispatch(admin_order_status_update({ orderId, info: { status: newStatus } }));
+        setStatus(newStatus);
+    
+        // Mise à jour des produits en fonction du statut
+        order?.products?.forEach(product => {
+            const alreadyAdjusted = adjustedProducts[product._id];
+
+            // Si le statut est 'processing' ou 'placed', diminuer la quantité en stock une seule fois
+            if ((newStatus === 'processing' || newStatus === 'placed') && !alreadyAdjusted) {
+                dispatch(decreaseProductStock({ productId: product._id, quantity: product.quantity }));
+                setAdjustedProducts(prev => ({ ...prev, [product._id]: true })); // Marquer comme ajusté
+            }
+
+            // Si le statut est différent de 'processing' ou 'placed', et que le stock a déjà été ajusté
+            if (newStatus !== 'processing' && newStatus !== 'placed' && alreadyAdjusted) {
+                dispatch(increaseProductStock({ productId: product._id, quantity: product.quantity }));
+                setAdjustedProducts(prev => ({ ...prev, [product._id]: false })); // Marquer comme réajusté
+            }
+        });
+    };
     useEffect(() => { 
         if (successMessage) {
             toast.success(successMessage)
@@ -98,9 +128,15 @@ const OrderDetails = () => {
             {
                 order?.suborder?.map((o,i) => <div key={i + 20} className='text-[#d0d2d6] mt-2'>
                 <div className='flex justify-start items-center gap-3'>
-                    <h2>Seller {i + 1}   Order : </h2>
-                    <span>{o.delivery_status}</span> 
-                </div>
+                <h2>
+                                                    {seller ? (
+                                                        <p>Seller Name: {seller.name}</p>
+                                                    ) : (
+                                                        <p>No Seller Name found</p>
+                                                    )}
+                                                </h2>
+                                                <span>{o.delivery_status}</span>
+                                            </div>
                 {
                     o.products?.map((p,i) =>  <div className='flex gap-3 text-md mt-2'>
                     <img className='w-[50px] h-[50px]' src={p.images[0]} alt="" />

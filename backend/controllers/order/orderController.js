@@ -9,6 +9,7 @@ const moment = require("moment")
 const { responseReturn } = require('../../utiles/response')
 const { mongo: {ObjectId}} = require('mongoose')
 const authOrder = require('../../models/authOrder')
+const productModel = require('../../models/productModel')
 const stripe = require ('stripe')('sk_test_51Q5pOLF4md42MzNFfd346XC4Ei7UQAadIsfGlApQRmoY7LTNTKCrkzzrXV7LHegwEVhXjoGd4LnCkQI6dDvDiFAB00dT4MULfg')
 class orderController{
     paymentCheck = async (id) => {
@@ -224,6 +225,9 @@ class orderController{
         await customerOrder.findByIdAndUpdate(orderId, {
             delivery_status : status
         })
+        await authOrder.findByIdAndUpdate(orderId, {
+            delivery_status : status
+        })
         responseReturn(res,200, {message: 'order Status change success'})
     } catch (error) {
         console.log('get admin status error' + error.message)
@@ -273,6 +277,9 @@ get_seller_order = async (req,res) => {
     const { status } = req.body
     try {
         await authOrderModel.findByIdAndUpdate(orderId,{
+            delivery_status: status
+        })
+        await customerOrder.findByIdAndUpdate(orderId,{
             delivery_status: status
         })
         responseReturn(res,200, {message: 'order status updated successfully'})
@@ -336,6 +343,48 @@ get_seller_order = async (req,res) => {
      
   }
    // End Method 
+
+   decrease_stock = async(req,res) => {
+    const { productId } = req.params;
+    const { quantity } = req.body;
+
+    try {
+        const product = await productModel.findById(productId);
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        product.stock -= quantity;
+        await product.save();
+
+        res.status(200).json({ message: 'Stock decreased successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+}
+
+// END METHOD
+increase_stock = async(req,res) => {
+    const { productId } = req.params;
+    const { quantity } = req.body;
+
+    try {
+        const product = await productModel.findById(productId);
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        product.stock += quantity;
+        await product.save();
+
+        res.status(200).json({ message: 'Stock increased successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+}
+
+// END METHOD
+
 
 
 

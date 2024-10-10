@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { get_seller_order,messageClear, seller_order_status_update } from '../../store/Reducers/OrderReducer';
+import { decreaseProductStock, get_seller_order,increaseProductStock,messageClear, seller_order_status_update } from '../../store/Reducers/OrderReducer';
 import toast from 'react-hot-toast';
 const OrderDetails = () => {
     const { orderId } = useParams() 
     const dispatch = useDispatch() 
     const [status, setStatus] = useState('')
     const { order,errorMessage,successMessage } = useSelector(state => state.order)
+
     useEffect(() => {
         setStatus(order?.delivery_status)
     },[order])
     useEffect(() => {
         dispatch(get_seller_order(orderId))
     },[orderId])
-    const status_update = (e) => {
-        dispatch(seller_order_status_update({orderId, info: {status: e.target.value} }))
-        setStatus(e.target.value)
-    }
+
+
+       const status_update = (e) => {
+        const newStatus = e.target.value;
+        dispatch(seller_order_status_update({ orderId, info: { status: newStatus } }));
+        setStatus(newStatus);
+    
+        
+    };
+    
+    
+    
     useEffect(() => { 
         if (successMessage) {
             toast.success(successMessage)
