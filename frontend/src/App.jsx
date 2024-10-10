@@ -23,6 +23,7 @@ import Wishlist from './components/dashboard/Wishlist';
 import OrderDetails from './components/dashboard/OrderDetails';
 import Chat from './components/dashboard/Chat';
 import ConfirmOrder from './pages/ConfirmOrder';
+import ScrollToTop from './components/FixTopPage/ScrollToTop';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    <ScrollToTop /> {/* Ajoutez ici */}
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/register' element={<Register/>} />
