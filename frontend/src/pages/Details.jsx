@@ -400,11 +400,19 @@ const Details = () => {
                 <SwiperSlide key={i}>
                     <Link to={`/product/details/${p.slug}`} className='block'>
                         <div className='relative h-[270px]'>
-                            <div className='w-full h-full'>
-                            <img className='w-full h-full' src={p.images[0] } alt="" />
-                    <div className='absolute h-full w-full top-0 left-0 bg-[#000] opacity-25 hover:opacity-50 transition-all duration-500'> 
-                    </div>
-                           </div>
+                        <div className='relative w-[800px] h-[800px]'>
+  <img 
+    className='w-full h-full object-cover' 
+    src={p.images[0]} 
+    alt="" 
+  />
+  <div className='absolute h-full w-full top-0 left-0 bg-[#000] opacity-25 hover:opacity-50 transition-all duration-500'> 
+  </div>
+</div>
+
+
+
+
             {
              p.discount !== 0 && <div className='flex justify-center items-center absolute text-white w-[38px] h-[38px] rounded-full bg-red-500 font-semibold text-xs left-2 top-2'>{p.discount}%
             </div>

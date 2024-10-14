@@ -7,9 +7,10 @@ import Products from '../components/products/Products';
 import Footer from '../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_products } from '../store/reducers/homeReducer';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-
+    const navigate = useNavigate();  // Initialize useNavigate
     const dispatch = useDispatch()
     
     const {products,latest_product,topRated_product,discount_product} = useSelector(state => state.home)

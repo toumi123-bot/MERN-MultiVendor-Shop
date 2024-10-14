@@ -1,6 +1,6 @@
 
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Shops from './pages/Shops';
 import Card from './pages/Card';
@@ -24,6 +24,7 @@ import OrderDetails from './components/dashboard/OrderDetails';
 import Chat from './components/dashboard/Chat';
 import ConfirmOrder from './pages/ConfirmOrder';
 import ScrollToTop from './components/FixTopPage/ScrollToTop';
+import Blog from './pages/Blog';
 
 function App() {
 
@@ -34,12 +35,19 @@ function App() {
 
 },[])
 
+// Custom component to conditionally render ScrollToTop
+const ScrollToTopOnlyForDetails = () => {
+  const location = useLocation();
 
+  // Use startsWith to check for dynamic routes
+  return location.pathname.startsWith('/product/details/') ? <ScrollToTop /> : null;
+};
   return (
     <BrowserRouter>
-    <ScrollToTop /> {/* Ajoutez ici */}
+    <ScrollToTopOnlyForDetails /> 
     <Routes>
       <Route path='/' element={<Home/>} />
+      <Route path='/blog' element={<Blog />} />
       <Route path='/register' element={<Register/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/shops' element={<Shops/>} />
