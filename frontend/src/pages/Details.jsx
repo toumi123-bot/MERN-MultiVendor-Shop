@@ -279,21 +279,36 @@ const Details = () => {
                     {product.stock ? `In Stock(${product.stock})` : 'Out Of Stock'}
                 </span> 
 
-    <ul className='flex justify-start items-center gap-3'>
-        <li>
-            <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-indigo-500 rounded-full text-white' href="https://www.facebook.com/profile.php?id=100063970605701"> <FaFacebookF /> </a>
-        </li>
-        <li>
-        <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-black rounded-full text-white' href="https://x.com/BimatooTechnol1"> <FaSquareXTwitter /> </a>
-        </li>
-        <li>
-        <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-[#0077B5] rounded-full text-white' href="https://www.linkedin.com/company/bimatech-technology/posts/?feedView=all"> <FaLinkedin /> </a>
-
-        </li>
-        <li>
-            <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-black rounded-full text-white' href="https://github.com/ToumiFourat"> <FaGithub /> </a>
-        </li>
-    </ul> 
+                <ul className='flex justify-start items-center gap-3'>
+            <li>
+                <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-indigo-500 rounded-full text-white' 
+                   href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`} 
+                   target="_blank" rel="noopener noreferrer">
+                    <FaFacebookF />
+                </a>
+            </li>
+            <li>
+                <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-black rounded-full text-white' 
+                   href={`https://twitter.com/share?url=${window.location.href}&text=Check%20this%20product`} 
+                   target="_blank" rel="noopener noreferrer">
+                    <FaSquareXTwitter />
+                </a>
+            </li>
+            <li>
+                <a className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-[#0077B5] rounded-full text-white' 
+                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`} 
+                   target="_blank" rel="noopener noreferrer">
+                    <FaLinkedin />
+                </a>
+            </li>
+            <li>
+                <button 
+                    className='w-[38px] h-[38px] hover:bg-[#059473] hover:text-white flex justify-center items-center bg-black rounded-full text-white' 
+                    onClick={() => navigator.clipboard.writeText(window.location.href)}>
+                    <FaGithub /> {/* Icône de copie, peut être changée */}
+                </button>
+            </li>
+        </ul> 
 
 
 

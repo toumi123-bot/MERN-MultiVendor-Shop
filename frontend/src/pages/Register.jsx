@@ -100,14 +100,8 @@ const Register = () => {
         <div className='h-[1px] bg-slate-300 w-[95%]'> </div>
     </div>
 
-    <button className='px-8 w-full py-2 bg-indigo-500 shadow hover:shadow-indigo-500/50 text-white rounded-md flex justify-center items-center gap-2 mb-3'>
-        <span><FaFacebookF /> </span>
-        <span>Login With Facebook </span>
-    </button>
-    <button className='px-8 w-full py-2 bg-red-500 shadow hover:shadow-red-500/50 text-white rounded-md flex justify-center items-center gap-2 mb-3'>
-        <span><FaGoogle  /></span>
-        <span>Login With Google </span>
-    </button> 
+   
+    
 
                     </div>
                     <div className='text-center text-slate-600 pt-1'>
