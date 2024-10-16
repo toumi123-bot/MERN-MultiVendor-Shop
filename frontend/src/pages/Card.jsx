@@ -62,12 +62,12 @@ const Card = () => {
     const applyCoupon = () => {
         if (coupon === 'FOURAT') { // Exemple de coupon
             if((price + shipping_fee) >= 200 && (price + shipping_fee) < 5000) {
-                setDiscount(Math.min(20, (price + shipping_fee))); // Applique une réduction de 20 TND ou moins si le prix est inférieur à 20
+                setDiscount(Math.min(shipping_fee, (price + shipping_fee))); 
                 setIsCouponValid(true);
                 toast.success('Coupon appliqué avec succès!');
             } 
             else if ((price + shipping_fee) >= 5000) {
-                setDiscount(Math.min(400, (price + shipping_fee))); 
+                setDiscount(Math.min(400 + shipping_fee, (price + shipping_fee))); 
                 setIsCouponValid(true);
                 toast.success('Coupon appliqué avec succès!');
             } 
