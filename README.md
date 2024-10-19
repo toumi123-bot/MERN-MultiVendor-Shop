@@ -47,7 +47,7 @@ Welcome to the Complete Multi-Vendor E-Commerce Project repository! This applica
 
 ## Explanatory video of the project
 
-- **Linkedin** - [Enjoy](https://www.youtube.com/watch?v=f0oHhQv0j9M)
+- **Youtube** - [Enjoy](https://www.youtube.com/watch?v=f0oHhQv0j9M)
 
 ## Contact
 
