@@ -45,16 +45,9 @@ Welcome to the Complete Multi-Vendor E-Commerce Project repository! This applica
 - **Customizable UI:** Design elements and features tailored to specific needs and preferences.
 - **Real-Time Communication:** Live chat and notifications for dynamic user interactions.
 
-## Getting Started
+## Explanatory video of the project
 
-To set up and run the project locally, follow these steps:
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- [MongoDB](https://www.mongodb.com/) (installed locally or using a cloud provider like MongoDB Atlas)
-- [Cloudinary](https://cloudinary.com/) account for image uploads (optional)
-- [Stripe](https://stripe.com/) account for payment processing (optional)
+- **Linkedin** - [Enjoy](https://www.youtube.com/watch?v=f0oHhQv0j9M)
 
 ## Contact
 
