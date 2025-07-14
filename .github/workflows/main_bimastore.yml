@@ -16,35 +16,36 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'  # ou '20' selon ta version
 
       - name: Install frontend dependencies
         run: |
           cd frontend
-          npm install
+          npm install --legacy-peer-deps
+
+      - name: Fix babel plugin warning
+        run: |
+          cd frontend
+          npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
+      - name: Update browserslist database
+        run: |
+          cd frontend
+          npx update-browserslist-db@latest
 
       - name: Build frontend
         run: |
           cd frontend
           set CI=false && npm run build
 
-      # Option A: Utiliser publish-profile (supprimer la step azure/login)
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: Bimastore
+          app-name: Bimastore  # remplace par ton nom Azure WebApp exact
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: frontend/build
-
-      # --- OU ---
-      # Option B: Utiliser azure/login avec service principal
-      # - name: Azure Login
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # - name: Deploy to Azure Web App
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: Bimastore
-      #     package: frontend/build
