@@ -3,11 +3,11 @@ name: Deploy frontend to Azure
 on:
   push:
     branches:
-      - main  # Ou remplace par "master" selon ta branche principale
+      - main  # ou master
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -16,21 +16,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # ou '20' si tu utilises une version plus récente
+          node-version: '18'
 
       - name: Install frontend dependencies
         run: |
-          cd frontend
-          npm install
+          cd frontend && npm install
 
       - name: Build frontend
         run: |
-          cd frontend
-          CI=false npm run build
+          cd frontend && set CI=false && npm run build
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: Bimastore  # 🔁 remplace par le nom exact de ton Web App dans Azure
+          app-name: Bimastore
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: frontend
