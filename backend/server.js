@@ -10,6 +10,7 @@ const http = require("http");
 const server = http.createServer(app);
 
 const path = require("path");
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("*", (req, res) => {
