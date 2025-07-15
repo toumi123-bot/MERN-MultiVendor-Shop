@@ -5,12 +5,12 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const path = require("path");
 const http = require("http");
 const socket = require("socket.io");
 
 const { dbConnect } = require("./utiles/db");
 
+// Création du serveur HTTP
 const server = http.createServer(app);
 
 // Middleware global
@@ -39,22 +39,21 @@ app.use("/api", require("./routes/chatRoutes"));
 app.use("/api", require("./routes/paymentRoutes"));
 app.use("/api", require("./routes/dashboard/dashboardRoutes"));
 
-// --- TEST ROUTE ---
-app.get("/", (req, res) => res.send("Hello Server"));
+// --- TEST SIMPLE ---
+app.get("/api/test", (req, res) => {
+  res.json({ message: "✅ Backend API is working correctly on Azure." });
+});
 
-// --- FICHIERS STATIQUES FRONTEND ---
-// app.use(express.static(path.join(__dirname, "public")));
-
-// --- Catch-all React (uniquement pour les requêtes GET non-API) ---
-// app.get("*", (req, res, next) => {
-//   if (req.originalUrl.startsWith("/api")) {
-//     return res.status(404).json({ error: "API route not found" });
-//   }
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
+// --- Catch-all pour bloquer les accès non-API ---
+app.get("*", (req, res, next) => {
+  if (req.originalUrl.startsWith("/api")) {
+    return res.status(404).json({ error: "❌ API route not found" });
+  }
+  res.send("✅ BimaStore API - Backend seulement (pas de frontend ici)");
+});
 
 // --- SOCKET.IO ---
-const io = require("socket.io")(server, {
+const io = socket(server, {
   cors: {
     origin: [
       "https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net",
@@ -84,13 +83,14 @@ const addSeller = (sellerId, socketId, userInfo) => {
 const findCustomer = (customerId) =>
   allCustomer.find((c) => c.customerId === customerId);
 const findSeller = (sellerId) => allSeller.find((c) => c.sellerId === sellerId);
+
 const remove = (socketId) => {
   allCustomer = allCustomer.filter((c) => c.socketId !== socketId);
   allSeller = allSeller.filter((c) => c.socketId !== socketId);
 };
 
 io.on("connection", (soc) => {
-  console.log("socket server running..");
+  console.log("🔌 New socket connection");
 
   soc.on("add_user", (customerId, userInfo) => {
     addUser(customerId, soc.id, userInfo);
@@ -123,12 +123,6 @@ io.on("connection", (soc) => {
     }
   });
 
-  soc.on("disconnect", () => {
-    console.log("user disconnect");
-    remove(soc.id);
-    io.emit("activeSeller", allSeller);
-  });
-
   soc.on("send_message_seller_to_admin", (msg) => {
     if (admin.socketId) {
       soc.to(admin.socketId).emit("receved_seller_message", msg);
@@ -141,9 +135,15 @@ io.on("connection", (soc) => {
     admin = { ...adminInfo, socketId: soc.id };
     io.emit("activeSeller", allSeller);
   });
+
+  soc.on("disconnect", () => {
+    console.log("🚫 Socket disconnected");
+    remove(soc.id);
+    io.emit("activeSeller", allSeller);
+  });
 });
 
-// Connexion DB + démarrage
+// --- DB + Start server ---
 dbConnect();
 const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`✅ Server is running on port ${port}`));
