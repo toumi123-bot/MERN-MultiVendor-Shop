@@ -11,10 +11,9 @@ const socket = require("socket.io");
 
 const { dbConnect } = require("./utiles/db");
 
-// Création du serveur HTTP
 const server = http.createServer(app);
 
-// Middlewares globaux
+// Middleware global
 app.use(
   cors({
     origin: [
@@ -24,11 +23,10 @@ app.use(
     credentials: true,
   })
 );
-
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// Routes API (à mettre AVANT la gestion des fichiers statiques)
+// --- ROUTES API ---
 app.use("/api/home", require("./routes/home/homeRoutes"));
 app.use("/api", require("./routes/authRoutes"));
 app.use("/api", require("./routes/order/orderRoutes"));
@@ -41,13 +39,13 @@ app.use("/api", require("./routes/chatRoutes"));
 app.use("/api", require("./routes/paymentRoutes"));
 app.use("/api", require("./routes/dashboard/dashboardRoutes"));
 
-// Route test pour vérifier que le serveur tourne
+// --- TEST ROUTE ---
 app.get("/", (req, res) => res.send("Hello Server"));
 
-// Fichiers statiques React
+// --- FICHIERS STATIQUES FRONTEND ---
 app.use(express.static(path.join(__dirname, "public")));
 
-// Catch-all React – Important: NE PAS intercepter les routes API
+// --- Catch-all React (uniquement pour les requêtes GET non-API) ---
 app.get("*", (req, res, next) => {
   if (req.originalUrl.startsWith("/api")) {
     return res.status(404).json({ error: "API route not found" });
@@ -55,7 +53,7 @@ app.get("*", (req, res, next) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Socket.io
+// --- SOCKET.IO ---
 const io = require("socket.io")(server, {
   cors: {
     origin: [
@@ -86,7 +84,6 @@ const addSeller = (sellerId, socketId, userInfo) => {
 const findCustomer = (customerId) =>
   allCustomer.find((c) => c.customerId === customerId);
 const findSeller = (sellerId) => allSeller.find((c) => c.sellerId === sellerId);
-
 const remove = (socketId) => {
   allCustomer = allCustomer.filter((c) => c.socketId !== socketId);
   allSeller = allSeller.filter((c) => c.socketId !== socketId);
@@ -146,9 +143,7 @@ io.on("connection", (soc) => {
   });
 });
 
-// Connexion à la base de données
+// Connexion DB + démarrage
 dbConnect();
-
-// Lancement du serveur
 const port = process.env.PORT || 5000;
-server.listen(port, () => console.log(`Server is running on port ${port}`));
+server.listen(port, () => console.log(`✅ Server is running on port ${port}`));
