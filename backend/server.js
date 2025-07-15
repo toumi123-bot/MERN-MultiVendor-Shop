@@ -12,7 +12,13 @@ const server = http.createServer(app);
 const path = require("path");
 
 app.use(express.static(path.join(__dirname, "public")));
+// Route test principale pour vérifier si le backend tourne
 app.get("/", (req, res) => res.send("Hello Server"));
+
+// Fichiers statiques (si tu as un frontend compilé dans /public)
+app.use(express.static(path.join(__dirname, "public")));
+
+// Catch-all (si tu fais du routing côté client comme React Router)
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
@@ -132,7 +138,7 @@ app.use("/api", require("./routes/home/customerAuthRoutes"));
 app.use("/api", require("./routes/chatRoutes"));
 app.use("/api", require("./routes/paymentRoutes"));
 app.use("/api", require("./routes/dashboard/dashboardRoutes"));
-app.get("/", (req, res) => res.send("Hello Server"));
+
 const port = process.env.PORT;
 dbConnect();
 server.listen(port, () => console.log(`Server is running on port ${port}`));
