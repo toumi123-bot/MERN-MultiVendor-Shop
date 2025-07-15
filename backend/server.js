@@ -39,15 +39,15 @@ app.use("/api", require("./routes/paymentRoutes"));
 app.use("/api", require("./routes/dashboard/dashboardRoutes"));
 
 // Fichiers statiques (frontend compilé dans /public)
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 // Route test principale
 app.get("/", (req, res) => res.send("Hello Server"));
 
 // Catch-all pour React Router ou autre routing côté client
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 // Socket.io
 const io = socket(server, {
