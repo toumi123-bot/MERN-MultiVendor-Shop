@@ -28,7 +28,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-// Routes API (à mettre AVANT la gestion des fichiers statiques et du catch-all)
+// Routes API (à mettre AVANT la gestion des fichiers statiques)
 app.use("/api/home", require("./routes/home/homeRoutes"));
 app.use("/api", require("./routes/authRoutes"));
 app.use("/api", require("./routes/order/orderRoutes"));
@@ -41,13 +41,17 @@ app.use("/api", require("./routes/chatRoutes"));
 app.use("/api", require("./routes/paymentRoutes"));
 app.use("/api", require("./routes/dashboard/dashboardRoutes"));
 
-// Route test principale
+// Route test pour vérifier que le serveur tourne
 app.get("/", (req, res) => res.send("Hello Server"));
 
-// Fichiers statiques (frontend compilé dans /public)
+// Fichiers statiques React
 app.use(express.static(path.join(__dirname, "public")));
-// Catch-all pour React Router ou autre routing côté client
-app.get("*", (req, res) => {
+
+// Catch-all React – Important: NE PAS intercepter les routes API
+app.get("*", (req, res, next) => {
+  if (req.originalUrl.startsWith("/api")) {
+    return res.status(404).json({ error: "API route not found" });
+  }
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
@@ -55,7 +59,7 @@ app.get("*", (req, res) => {
 const io = require("socket.io")(server, {
   cors: {
     origin: [
-      "https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net", // ton frontend
+      "https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net",
       "http://localhost:3000",
     ],
     credentials: true,
@@ -102,14 +106,14 @@ io.on("connection", (soc) => {
   });
 
   soc.on("send_seller_message", (msg) => {
-    const customer = findCustomer(msg.receiverId); // corrigé "receverId" -> "receiverId"
+    const customer = findCustomer(msg.receiverId);
     if (customer) {
       soc.to(customer.socketId).emit("seller_message", msg);
     }
   });
 
   soc.on("send_customer_message", (msg) => {
-    const seller = findSeller(msg.receiverId); // idem correction
+    const seller = findSeller(msg.receiverId);
     if (seller) {
       soc.to(seller.socketId).emit("customer_message", msg);
     }
@@ -145,5 +149,6 @@ io.on("connection", (soc) => {
 // Connexion à la base de données
 dbConnect();
 
+// Lancement du serveur
 const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`Server is running on port ${port}`));
