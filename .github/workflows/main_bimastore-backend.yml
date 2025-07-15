@@ -1,9 +1,9 @@
-name: Deploy Backend to Azure
+name: Deploy backend to Azure
 
 on:
   push:
     branches:
-      - main  # ou 'master' selon ta branche
+      - main  # ou "master"
 
 jobs:
   build-and-deploy:
@@ -13,24 +13,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '20'
 
       - name: Install backend dependencies
         run: |
           cd backend
           npm install
 
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Build backend
+        run: |
+          cd backend
+          CI=false npm run build
 
-      - name: Deploy backend to Azure Web App
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: bimastore-backend  # 🔁 Nom de ta Web App
+          app-name: Bimastore  # le nom exact de ton App Service Azure
           publish-profile: ${{ secrets.AZURE_WEBAPP_BACKEND_PUBLISH_PROFILE }}
-          package: ./backend
+          package: backend/build
+ 
+  
+
