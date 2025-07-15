@@ -52,7 +52,7 @@ app.get("/", (req, res) => res.send("Hello Server"));
 // Socket.io
 const io = socket(server, {
   cors: {
-    origin: "*",
+    origin: "bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net",
     credentials: true,
   },
 });
