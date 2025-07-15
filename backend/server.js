@@ -43,15 +43,15 @@ app.use("/api", require("./routes/dashboard/dashboardRoutes"));
 app.get("/", (req, res) => res.send("Hello Server"));
 
 // --- FICHIERS STATIQUES FRONTEND ---
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 // --- Catch-all React (uniquement pour les requêtes GET non-API) ---
-app.get("*", (req, res, next) => {
-  if (req.originalUrl.startsWith("/api")) {
-    return res.status(404).json({ error: "API route not found" });
-  }
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+// app.get("*", (req, res, next) => {
+//   if (req.originalUrl.startsWith("/api")) {
+//     return res.status(404).json({ error: "API route not found" });
+//   }
+//   res.sendFile(path.join(__dirname, "public", "index.html"));
+// });
 
 // --- SOCKET.IO ---
 const io = require("socket.io")(server, {
