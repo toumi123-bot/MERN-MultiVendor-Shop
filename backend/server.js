@@ -50,10 +50,14 @@ app.get("/", (req, res) => res.send("Hello Server"));
 // });
 
 // Socket.io
-const io = socket(server, {
+const io = require("socket.io")(server, {
   cors: {
-    origin: "bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net",
+    origin: [
+      "https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net", // ton frontend
+      "http://localhost:3000",
+    ],
     credentials: true,
+    methods: ["GET", "POST"],
   },
 });
 
