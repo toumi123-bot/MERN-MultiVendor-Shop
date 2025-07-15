@@ -16,16 +16,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install backend dependencies
-        run: |
-          cd backend
-          npm install
+        working-directory: backend
+        run: npm install
+
+      # Optionnel : ajoute ceci si tu utilises TypeScript ou un build
+      # - name: Build backend (optional)
+      #   working-directory: backend
+      #   run: npm run build
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: Bimastore  # Nom exact de ton App Service Azure
+          app-name: bimastore-backend  # Remplace par le nom EXACT de ton App Service Azure
           publish-profile: ${{ secrets.AZURE_WEBAPP_BACKEND_PUBLISH_PROFILE }}
-          package: backend
+          package: ./backend
