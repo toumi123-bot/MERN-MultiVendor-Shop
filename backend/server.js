@@ -17,7 +17,10 @@ const server = http.createServer(app);
 // Middlewares globaux
 app.use(
   cors({
-    origin: ["bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net"],
+    origin: [
+      "https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net",
+      "http://localhost:3000",
+    ],
     credentials: true,
   })
 );
@@ -38,16 +41,15 @@ app.use("/api", require("./routes/chatRoutes"));
 app.use("/api", require("./routes/paymentRoutes"));
 app.use("/api", require("./routes/dashboard/dashboardRoutes"));
 
-// Fichiers statiques (frontend compilé dans /public)
-// app.use(express.static(path.join(__dirname, "public")));
-
 // Route test principale
 app.get("/", (req, res) => res.send("Hello Server"));
 
+// Fichiers statiques (frontend compilé dans /public)
+app.use(express.static(path.join(__dirname, "public")));
 // Catch-all pour React Router ou autre routing côté client
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "public", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Socket.io
 const io = require("socket.io")(server, {
