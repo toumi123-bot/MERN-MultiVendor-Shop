@@ -35,7 +35,7 @@ jobs:
       - name: 🔐 Login to Azure via OIDC
         uses: azure/login@v2
         with:
-          auth-type: 'azure-cli'   # <-- important, active OIDC sans secrets
+          auth-type: oidc   # <-- utilise OIDC (pas besoin de client-id, tenant-id, secret)
 
       - name: 🚀 Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
