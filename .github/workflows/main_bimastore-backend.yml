@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -23,10 +24,11 @@ jobs:
           cd backend
           npm install
 
-      - name: Zip and deploy
+      - name: Build backend zip
         run: |
           cd backend
-          zip -r ../backend.zip .
+          zip -r backend.zip .
+          mv backend.zip ../backend.zip
         shell: bash
 
       - name: Deploy to Azure
