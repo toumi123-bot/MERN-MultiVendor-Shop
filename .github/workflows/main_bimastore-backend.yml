@@ -10,7 +10,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write  # ✅ Requis pour azure/login OIDC
+      id-token: write  # Obligatoire pour azure/login OIDC
       contents: read
 
     steps:
@@ -32,12 +32,10 @@ jobs:
           cd backend
           zip -r ../backend.zip .
 
-      - name: 🔐 Login to Azure
+      - name: 🔐 Login to Azure via OIDC
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          auth-type: 'azure-cli'   # <-- important, active OIDC sans secrets
 
       - name: 🚀 Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
