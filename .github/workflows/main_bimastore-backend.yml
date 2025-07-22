@@ -1,4 +1,4 @@
-name: Deploy backend Docker container to Azure
+name: Build and Deploy Backend Docker to Azure
 
 on:
   push:
@@ -13,27 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Log in to Azure Container Registry
+      - name: Login to Azure Container Registry
         uses: docker/login-action@v2
         with:
-          registry: myregistry.azurecr.io     # <--- remplacer par ton registry (ex: bimastore.azurecr.io)
-          username: ${{ secrets.AZURE_CONTAINER_REGISTRY_USERNAME }}
-          password: ${{ secrets.AZURE_CONTAINER_REGISTRY_PASSWORD }}
+          registry: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: ./backend
-          push: true
-          tags: myregistry.azurecr.io/bimastore-backend:latest  # <--- adapter le nom
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/bimastore-backend:latest ./backend
 
-      - name: Deploy Docker image to Azure Web App
+      - name: Push Docker image to ACR
+        run: |
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/bimastore-backend:latest
+
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: bimastore-backend
+          app-name: bimastore-backend   # Nom de ta Web App Azure
           slot-name: production
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: myregistry.azurecr.io/bimastore-backend:latest  # <--- même tag que le build
+          images: ${{ secrets.ACR_LOGIN_SERVER }}/bimastore-backend:latest
