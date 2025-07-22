@@ -2,7 +2,7 @@ import axios from "axios";
 
 const local = "http://localhost:5000";
 const production =
-  "https://bimastore-backend-f9amc7fbbfhjghar.francecentral-01.azurewebsites.net";
+  "https://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net";
 
 const api = axios.create({
   baseURL:

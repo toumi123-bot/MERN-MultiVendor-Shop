@@ -20,7 +20,7 @@ const Stripe = ({ price, orderId }) => {
   const create_payment = async () => {
     try {
       const { data } = await axios.post(
-        "https://bimastore-backend-f9amc7fbbfhjghar.francecentral-01.azurewebsites.net/api/order/create-payment",
+        "https://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net/api/order/create-payment",
         { price },
         { withCredentials: true }
       );

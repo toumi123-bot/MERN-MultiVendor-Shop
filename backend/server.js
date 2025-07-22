@@ -120,7 +120,9 @@ io.on("connection", (soc) => {
     io.emit("activeSeller", allSeller);
   });
 });
-
+app.get("/health", (req, res) => {
+  res.status(200).send("Healthy");
+});
 // --- ROUTES API ---
 app.use("/api/home", require("./routes/home/homeRoutes"));
 app.use("/api", require("./routes/authRoutes"));
