@@ -1,8 +1,16 @@
+name: Deploy Backend to Azure
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write  # ✅ NÉCESSAIRE pour azure/login@v2
+      id-token: write  # ✅ requis pour azure/login@v2
       contents: read
 
     steps:
