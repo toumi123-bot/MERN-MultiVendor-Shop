@@ -120,7 +120,7 @@ const Login = () => {
             </div>
             <div className="w-full h-full py-4 pr-4">
               <img
-                src="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/images/login.jpg"
+                src="https://icy-smoke-09917aa1e.1.azurestaticapps.net/images/login.jpg"
                 alt=""
               />
             </div>

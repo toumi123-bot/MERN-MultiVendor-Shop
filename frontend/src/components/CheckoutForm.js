@@ -27,7 +27,7 @@ const CheckoutForm = ({ orderId }) => {
       elements,
       confirmParams: {
         return_url:
-          "https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/order/confirm",
+          "https://icy-smoke-09917aa1e.1.azurestaticapps.net/order/confirm",
       },
     });
     if (error.type === "card_error" || error.type === "validation_error") {

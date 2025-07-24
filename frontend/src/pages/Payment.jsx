@@ -26,7 +26,7 @@ const Payment = () => {
                   >
                     <div className="flex flex-col gap-[3px] justify-center items-center">
                       <img
-                        src="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/images/payment/stripe.png"
+                        src="https://icy-smoke-09917aa1e.1.azurestaticapps.net/images/payment/stripe.png"
                         alt=""
                       />
                     </div>
@@ -40,7 +40,7 @@ const Payment = () => {
                   >
                     <div className="flex flex-col gap-[3px] justify-center items-center">
                       <img
-                        src="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/images/payment/cod.png"
+                        src="https://icy-smoke-09917aa1e.1.azurestaticapps.net/images/payment/cod.png"
                         alt=""
                       />
                     </div>

@@ -90,7 +90,7 @@ const Header = () => {
                 </div>
                 <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]">
                   <img
-                    src="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/images/language.png"
+                    src="https://icy-smoke-09917aa1e.1.azurestaticapps.net/images/language.png"
                     alt=""
                   />
                   <span>
@@ -136,7 +136,7 @@ const Header = () => {
               <div className="flex justify-between items-center">
                 <Link to="/">
                   <img
-                    src="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/images/logo.png"
+                    src="https://icy-smoke-09917aa1e.1.azurestaticapps.net/images/logo.png"
                     alt=""
                   />
                 </Link>
@@ -272,14 +272,14 @@ const Header = () => {
           <div className="flex justify-start flex-col gap-6">
             <Link to="/">
               <img
-                src="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/images/logo.png"
+                src="https://icy-smoke-09917aa1e.1.azurestaticapps.net/images/logo.png"
                 alt=""
               />
             </Link>
             <div className="flex justify-start items-center gap-10">
               <div className="flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute ">
                 <img
-                  src="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/images/language.png"
+                  src="https://icy-smoke-09917aa1e.1.azurestaticapps.net/images/language.png"
                   alt=""
                 />
                 <span>

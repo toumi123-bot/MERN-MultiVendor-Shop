@@ -134,7 +134,7 @@ const Register = () => {
               </div>
               <a
                 target="_blank"
-                href="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/login"
+                href="https://icy-smoke-09917aa1e.1.azurestaticapps.net/login"
               >
                 <div className="px-8 w-full py-2 bg-[#02e3e0] shadow hover:shadow-red-500/50 text-white rounded-md flex justify-center items-center gap-2 mb-3">
                   Login As a Seller
@@ -142,7 +142,7 @@ const Register = () => {
               </a>
               <a
                 target="_blank"
-                href="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/register"
+                href="https://icy-smoke-09917aa1e.1.azurestaticapps.net/register"
               >
                 <div className="px-8 w-full py-2 bg-[#ad2cc4] shadow hover:shadow-red-500/50 text-white rounded-md flex justify-center items-center gap-2 mb-3">
                   Register As a Seller
@@ -152,7 +152,7 @@ const Register = () => {
 
             <div className="w-full h-full py-4 pr-4">
               <img
-                src="https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net/images/login.jpg"
+                src="https://icy-smoke-09917aa1e.1.azurestaticapps.net/images/login.jpg"
                 alt=""
               />
             </div>
