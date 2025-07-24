@@ -1,0 +1,8 @@
+{
+  "routes": [
+    {
+      "route": "/seller/*",
+      "rewrite": "/seller/index.html"
+    }
+  ]
+}
