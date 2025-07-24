@@ -17,6 +17,7 @@ const server = http.createServer(app);
 // --- Origines autorisées ---
 const allowedOrigins = [
   "https://icy-smoke-09917aa1e.1.azurestaticapps.net",
+  "https://ambitious-desert-0d4d5481e.1.azurestaticapps.net",
   "http://localhost:3000",
   "http://localhost:3001",
 ];
