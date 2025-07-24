@@ -28,8 +28,12 @@ class customerAuthController {
           method: createCustomer.method,
         });
         res.cookie("customerToken", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production", // active en prod
+          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
           expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         });
+
         responseReturn(res, 201, { message: "User Register Success", token });
       }
     } catch (error) {
@@ -55,8 +59,12 @@ class customerAuthController {
             method: customer.method,
           });
           res.cookie("customerToken", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
           });
+
           responseReturn(res, 201, { message: "User Login Success", token });
         } else {
           responseReturn(res, 404, { error: "Password Wrong" });
@@ -73,8 +81,12 @@ class customerAuthController {
 
   customer_logout = async (req, res) => {
     res.cookie("customerToken", "", {
-      expires: new Date(Date.now()),
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      expires: new Date(0), // expire immédiatement
     });
+
     responseReturn(res, 200, { message: "Logout Success" });
   };
   // End Method
