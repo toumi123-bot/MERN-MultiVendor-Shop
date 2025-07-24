@@ -7,5 +7,5 @@ export const overrideStyle = {
   alignItems: "center",
 };
 export const socket = io(
-  "http://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net/"
+  "https://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net/"
 );
