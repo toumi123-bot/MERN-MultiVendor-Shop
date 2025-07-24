@@ -16,7 +16,7 @@ const server = http.createServer(app);
 
 // --- Origines autorisées ---
 const allowedOrigins = [
-  "https://bimastore-ekhehwbbenf5cqcr.francecentral-01.azurewebsites.net",
+  "https://icy-smoke-09917aa1e.1.azurestaticapps.net",
   "http://localhost:3000",
   "http://localhost:3001",
 ];
