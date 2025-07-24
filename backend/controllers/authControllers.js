@@ -21,8 +21,12 @@ class authControllers {
             role: admin.role,
           });
           res.cookie("accessToken", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
           });
+
           responseReturn(res, 200, { token, message: "Login Success" });
         } else {
           responseReturn(res, 404, { error: "Password Wrong" });
@@ -50,8 +54,12 @@ class authControllers {
             role: seller.role,
           });
           res.cookie("accessToken", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
           });
+
           responseReturn(res, 200, { token, message: "Login Success" });
         } else {
           responseReturn(res, 404, { error: "Password Wrong" });
@@ -85,6 +93,9 @@ class authControllers {
 
         const token = await createToken({ id: seller.id, role: seller.role });
         res.cookie("accessToken", token, {
+          httpOnly: true, // Empêche accès JS côté client
+          secure: process.env.NODE_ENV === "production", // En HTTPS uniquement en prod
+          sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Politique cookie cross-site
           expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         });
 
@@ -175,10 +186,12 @@ class authControllers {
   // End Method
   logout = async (req, res) => {
     try {
-      res.cookie("accessToken", null, {
-        expires: new Date(Date.now()),
+      res.cookie("accessToken", token, {
         httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // true en prod, false en dev
+        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       });
+
       responseReturn(res, 200, { message: "logout Success" });
     } catch (error) {
       responseReturn(res, 500, { error: error.message });
