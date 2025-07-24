@@ -58,7 +58,7 @@ const ConfirmOrder = () => {
     if (orderId) {
       try {
         await axios.get(
-          `https://bimastore-backend-f9amc7fbbfhjghar.francecentral-01.azurewebsites.net/api/order/confirm/${orderId}`
+          `https://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net/api/order/confirm/${orderId}`
         );
         localStorage.removeItem("orderId");
         setLoader(false);

@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import io from "socket.io-client";
 import { FaList } from "react-icons/fa";
 const socket = io(
-  "bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net",
+  "https://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net",
   {
     withCredentials: true,
     transports: ["websocket"], // 🔒 éviter le fallback polling (cause souvent des 403 sur Azure)
