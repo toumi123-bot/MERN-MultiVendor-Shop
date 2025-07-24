@@ -1,9 +1,11 @@
-import io from 'socket.io-client'
+import io from "socket.io-client";
 export const overrideStyle = {
-    display : 'flex',
-    margin : '0 auto',
-    height: '24px',
-    justifyContent : 'center',
-    alignItems : 'center'
-}
-export const socket = io('http://localhost:5000/')
+  display: "flex",
+  margin: "0 auto",
+  height: "24px",
+  justifyContent: "center",
+  alignItems: "center",
+};
+export const socket = io(
+  "http://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net/"
+);
