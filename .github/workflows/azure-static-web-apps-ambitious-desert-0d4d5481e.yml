@@ -22,18 +22,18 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Disable CI + Build and Deploy to Azure Static Web Apps
+      - name: Build and Deploy to Azure Static Web Apps
         id: builddeploy
-        uses: Azure/static-web-apps-deploy@v1  # <-- Correction ici
+        uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ICY_SMOKE_09917AA1E }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          action: "upload"
-          app_location: "./dashboard"
-          api_location: ""
-          output_location: "build"
+          action: "deploy"             # <-- ici on lance la build et deploy
+          app_location: "./dashboard"  # chemin vers ton dossier React
+          api_location: ""             # pas d’API dans ce projet
+          output_location: "build"     # dossier de build généré
         env:
-          CI: false  # <-- Pour empêcher le blocage ESLint
+          CI: false                   # désactive CI pour éviter certains blocages ESLint
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -43,7 +43,7 @@ jobs:
     steps:
       - name: Close PR Preview Environment
         id: closepullrequest
-        uses: Azure/static-web-apps-deploy@v1  # <-- Correction ici aussi
+        uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ICY_SMOKE_09917AA1E }}
           action: "close"
