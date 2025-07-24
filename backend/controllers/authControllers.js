@@ -186,9 +186,9 @@ class authControllers {
   // End Method
   logout = async (req, res) => {
     try {
-      res.cookie("accessToken", token, {
+      res.clearCookie("accessToken", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production", // true en prod, false en dev
+        secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       });
 
@@ -197,6 +197,7 @@ class authControllers {
       responseReturn(res, 500, { error: error.message });
     }
   };
+
   // End Method
 }
 
