@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdashboard=self.webpackChunkdashboard||[]).push([[493],{8493:(a,d,e)=>{e.r(d),e.d(d,{default:()=>h});e(2791);var s=e(184);const h=()=>(0,s.jsx)("div",{children:(0,s.jsx)("h1",{children:"Unauthorized Page"})})}}]);
+//# sourceMappingURL=493.fde225df.chunk.js.map
