@@ -4,15 +4,14 @@ const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const http = require("http");
-const socket = require("socket.io");
+const { Server } = require("socket.io");
 const { dbConnect } = require("./utiles/db");
 const { createClient } = require("redis");
 const { createAdapter } = require("@socket.io/redis-adapter");
-// --- Sécurité & perf ---
 const helmet = require("helmet");
 const compression = require("compression");
 
-// --- Créer serveur HTTP ---
+// --- Création serveur HTTP ---
 const server = http.createServer(app);
 
 // --- Origines autorisées ---
@@ -23,28 +22,24 @@ const allowedOrigins = [
   "http://localhost:3001",
 ];
 
-// --- Middlewares globaux ---
-app.use(
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
-  })
-);
+// --- Middlewares globaux (REST) ---
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
 app.use(compression());
 
-// --- SOCKET.IO ---
-const io = socket(server, {
+// --- SOCKET.IO avec Redis Adapter ---
+const io = new Server(server, {
   cors: {
     origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST"],
   },
-  transports: ["polling"], // ✅ Forcer polling uniquement
+  transports: ["polling"], // ⚠️ Forcer "polling" car WebSocket fail souvent sur Azure Static Web Apps
 });
 
+// --- Redis Pub/Sub pour adapter ---
 const pubClient = createClient({
   url: process.env.REDIS_URL,
   socket: {
@@ -60,9 +55,10 @@ Promise.all([pubClient.connect(), subClient.connect()])
     console.log("✅ Redis adapter connecté avec succès");
   })
   .catch((err) => {
-    console.error("Erreur lors de la connexion Redis adapter :", err);
+    console.error("❌ Erreur Redis adapter :", err);
   });
 
+// --- Données en mémoire ---
 let allCustomer = [];
 let allSeller = [];
 let admin = {};
@@ -88,6 +84,7 @@ const remove = (socketId) => {
   allSeller = allSeller.filter((c) => c.socketId !== socketId);
 };
 
+// --- Socket.IO Events ---
 io.on("connection", (soc) => {
   console.log("🔌 New socket connection");
 
@@ -141,10 +138,12 @@ io.on("connection", (soc) => {
     io.emit("activeSeller", allSeller);
   });
 });
+
+// --- Routes REST ---
 app.get("/health", (req, res) => {
   res.status(200).send("Healthy");
 });
-// --- ROUTES API ---
+
 app.use("/api/home", require("./routes/home/homeRoutes"));
 app.use("/api", require("./routes/authRoutes"));
 app.use("/api", require("./routes/order/orderRoutes"));
@@ -170,7 +169,7 @@ app.get("*", (req, res) => {
   res.send("✅ BimaStore Backend is running. No frontend served here.");
 });
 
-// --- Démarrer serveur après DB ---
+// --- Lancer serveur après DB ---
 const port = process.env.PORT || 5000;
 dbConnect()
   .then(() => {
