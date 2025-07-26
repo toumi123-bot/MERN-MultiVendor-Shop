@@ -41,6 +41,7 @@ const io = socket(server, {
     credentials: true,
     methods: ["GET", "POST"],
   },
+  transports: ["polling"], // ✅ Forcer polling uniquement
 });
 
 let allCustomer = [];

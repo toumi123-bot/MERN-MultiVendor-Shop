@@ -7,5 +7,10 @@ export const overrideStyle = {
   alignItems: "center",
 };
 export const socket = io(
-  "https://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net/"
+  "https://bimastore-backend-hredgxfkhxfgf9dt.francecentral-01.azurewebsites.net/",
+  {
+    transports: ["polling"], // ✅ aussi ici
+    reconnectionAttempts: 5,
+    timeout: 10000,
+  }
 );
