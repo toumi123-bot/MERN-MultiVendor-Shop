@@ -6,7 +6,8 @@ const cookieParser = require("cookie-parser");
 const http = require("http");
 const socket = require("socket.io");
 const { dbConnect } = require("./utiles/db");
-
+const { createClient } = require("redis");
+const { createAdapter } = require("@socket.io/redis-adapter");
 // --- Sécurité & perf ---
 const helmet = require("helmet");
 const compression = require("compression");
@@ -43,6 +44,24 @@ const io = socket(server, {
   },
   transports: ["polling"], // ✅ Forcer polling uniquement
 });
+
+const pubClient = createClient({
+  url: process.env.REDIS_URL,
+  socket: {
+    tls: true,
+    rejectUnauthorized: false, // nécessaire pour Azure Redis SSL
+  },
+});
+const subClient = pubClient.duplicate();
+
+Promise.all([pubClient.connect(), subClient.connect()])
+  .then(() => {
+    io.adapter(createAdapter(pubClient, subClient));
+    console.log("✅ Redis adapter connecté avec succès");
+  })
+  .catch((err) => {
+    console.error("Erreur lors de la connexion Redis adapter :", err);
+  });
 
 let allCustomer = [];
 let allSeller = [];
